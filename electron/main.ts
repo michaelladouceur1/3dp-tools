@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { mkdir } from "fs";
 import * as path from "path";
+import * as core from "../src/core";
 import loader from "../src/core/plugins";
 
 function createWindow() {
@@ -36,11 +37,7 @@ function createWindow() {
 app.whenReady().then(() => {
 	createWindow();
 
-	mkdir(path.join(app.getPath("home"), ".3dp-tools"), (err) => console.log(err));
-	console.log(app.getPath("appData"));
-	app.setPath("appData", path.join(app.getPath("home"), ".3dp-tools"));
-	console.log(app.getPath("appData"));
-
+	core.start();
 	loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
 
 	app.on("activate", () => {

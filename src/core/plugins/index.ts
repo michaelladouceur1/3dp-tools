@@ -3,7 +3,6 @@ import * as path from "path";
 import { iPlugin } from "../../../types/plugins";
 
 export default async function loader(pluginsPath: string, plugins: iPlugin[]) {
-	console.log(pluginsPath);
 	try {
 		const pluginDirs = await readdir(pluginsPath);
 		const pluginPackages = pluginDirs.map((dir) => {

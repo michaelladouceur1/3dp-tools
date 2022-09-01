@@ -1,0 +1,8 @@
+{
+	"paths": {
+		"pathFromHome": "",
+		"base": ".3dp-tools",
+		"plugins": "plugins",
+		"settings": "settings"
+	}
+}
