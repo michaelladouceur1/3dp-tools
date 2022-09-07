@@ -1,15 +1,21 @@
 import { app, BrowserWindow } from "electron";
-import { mkdir } from "fs";
 import * as path from "path";
+
+import { defaults } from "../constants/defaults";
 import * as core from "../src/core";
 import loader from "../src/core/plugins";
 
 function createWindow() {
+	const { browserWindow } = defaults;
+
 	const win = new BrowserWindow({
-		width: 1800,
-		height: 1000,
-		minWidth: 1200,
-		minHeight: 800,
+		width: browserWindow.width,
+		height: browserWindow.height,
+		minWidth: browserWindow.minWidth,
+		minHeight: browserWindow.minHeight,
+		center: browserWindow.center,
+		frame: browserWindow.frame,
+		title: browserWindow.title,
 		webPreferences: {
 			contextIsolation: false,
 			nodeIntegration: true,
@@ -37,10 +43,7 @@ function createWindow() {
 app.whenReady().then(() => {
 	createWindow();
 
-	// core.start();
-	console.log(app.getPath("home"));
-	console.log(app.getPath("appData"));
-	console.log(app.getPath("userData"));
+	core.start();
 	loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
 
 	app.on("activate", () => {

@@ -1,10 +1,21 @@
-export interface iConfig {
-	paths: iConfigPaths;
+export interface iDefaults {
+	browserWindow: iDefaultsBrowserWindow;
+	paths: iDefaultsPaths;
 }
 
-export interface iConfigPaths {
-	pathFromHome: string;
-	base: string;
+export interface iDefaultsBrowserWindow {
+	width: number;
+	height: number;
+	minWidth: number;
+	minHeight: number;
+	center: boolean;
+	title: string;
+	frame: boolean;
+}
+
+export interface iDefaultsPaths {
+	home: string;
+	data: string;
 	plugins: string;
 	settings: string;
 }
