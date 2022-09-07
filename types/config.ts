@@ -17,5 +17,4 @@ export interface iDefaultsPaths {
 	home: string;
 	data: string;
 	plugins: string;
-	settings: string;
 }

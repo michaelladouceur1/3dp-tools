@@ -20,6 +20,5 @@ export const defaults: iDefaults = {
 		home: HOME,
 		data: DATA,
 		plugins: path.join(DATA, "plugins"),
-		settings: path.join(DATA, "settings"),
 	},
 };

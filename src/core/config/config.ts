@@ -4,14 +4,12 @@ import { iDefaultsPaths } from "../../../types/config";
 import { defaults } from "../../../constants/defaults";
 
 function _createDirectories(paths: iDefaultsPaths) {
-	const { data, plugins, settings } = paths;
+	const { data, plugins } = paths;
 
 	// create data directory
 	_createDirectory(data);
 	// create plugins directory
 	_createDirectory(plugins);
-	// create settings directory
-	_createDirectory(settings);
 }
 
 function _createDirectory(path: string) {
