@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
+import { mkdirSync, writeFileSync } from "fs";
 import * as path from "path";
 
 import { iDefaultsAppData, iDefaultsPaths } from "../../../types/defaults";
@@ -14,7 +14,7 @@ function initializeDirectories(paths: iDefaultsPaths) {
 
 	function createDirectory(path: string) {
 		try {
-			mkdir(path, { recursive: true });
+			mkdirSync(path, { recursive: true });
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);
@@ -34,7 +34,7 @@ function initializeAppData(paths: iDefaultsPaths, appData: iDefaultsAppData) {
 
 	function createFile(path: string, data: any) {
 		try {
-			writeFile(path, JSON.stringify(data), { encoding: "utf8" });
+			writeFileSync(path, JSON.stringify(data), { encoding: "utf8", flag: "wx" });
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);
@@ -44,6 +44,6 @@ function initializeAppData(paths: iDefaultsPaths, appData: iDefaultsAppData) {
 }
 
 export async function setup() {
-	initializeDirectories(defaults.paths);
-	initializeAppData(defaults.paths, defaults.appData);
+	await initializeDirectories(defaults.paths);
+	await initializeAppData(defaults.paths, defaults.appData);
 }
