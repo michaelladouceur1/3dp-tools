@@ -7,5 +7,5 @@ export async function start() {
 
 	// load environment
 
-	// load plugins
+	// download/load plugins
 }

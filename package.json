@@ -39,6 +39,13 @@
 		"files": [
 			"build/**/*"
 		],
+		"fileAssociation": [
+			{
+				"ext": ".tdp",
+				"name": "3DP Tools File",
+				"icon": "build/favicon.ico"
+			}
+		],
 		"directories": {
 			"buildResources": "assets"
 		},

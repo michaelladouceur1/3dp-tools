@@ -1,1 +1,1 @@
-export function environment() {}
+export function start() {}
