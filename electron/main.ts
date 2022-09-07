@@ -37,7 +37,10 @@ function createWindow() {
 app.whenReady().then(() => {
 	createWindow();
 
-	core.start();
+	// core.start();
+	console.log(app.getPath("home"));
+	console.log(app.getPath("appData"));
+	console.log(app.getPath("userData"));
 	loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
 
 	app.on("activate", () => {
