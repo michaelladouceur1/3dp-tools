@@ -1,7 +1,7 @@
 import { app } from "electron";
 import * as path from "path";
 
-import { iDefaults } from "../types/defaults";
+import { iDefaults } from "./types/defaults";
 
 const HOME = app.getPath("userData");
 const DATA = path.join(HOME, "data");

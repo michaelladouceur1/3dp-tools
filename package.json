@@ -39,7 +39,7 @@
 		"files": [
 			"build/**/*"
 		],
-		"fileAssociation": [
+		"fileAssociations": [
 			{
 				"ext": ".tdp",
 				"name": "3DP Tools File",
