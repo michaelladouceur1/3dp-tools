@@ -43,7 +43,7 @@ function initializeAppData(paths: iDefaultsPaths, appData: iDefaultsAppData) {
 	}
 }
 
-export async function setup() {
+export async function initialize() {
 	await initializeDirectories(defaults.paths);
 	await initializeAppData(defaults.paths, defaults.appData);
 }

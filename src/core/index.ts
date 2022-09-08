@@ -1,7 +1,7 @@
-import * as config from "./config/config";
+import * as config from "./services/config";
 
 export async function start() {
-	config.setup();
+	config.initialize();
 
 	// start ipc
 
