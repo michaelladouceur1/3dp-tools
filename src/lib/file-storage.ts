@@ -1,11 +1,11 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 
-import { iFS, iFSOptions, iFSSaveData } from "../shared/types/file-storage";
+import { iStorageService, iFSOptions, iFSSaveData } from "../shared/types/storage";
 
-export function fileStorage({ path }: iFSOptions): iFS {
+export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageService {
 	async function getData() {
 		try {
-			return await readFile(path, { encoding: "utf8" });
+			return await readFile(path, { encoding: encoding });
 		} catch (error) {
 			console.log(error);
 		}
@@ -18,7 +18,7 @@ export function fileStorage({ path }: iFSOptions): iFS {
 		};
 
 		try {
-			await writeFile(path, JSON.stringify(data), { encoding: "utf8", flag: flags[type] });
+			await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);

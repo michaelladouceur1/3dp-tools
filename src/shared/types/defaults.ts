@@ -1,3 +1,5 @@
+import { iSettings } from "./settings";
+
 export interface iDefaults {
 	appData: iDefaultsAppData;
 	browserWindow: iDefaultsBrowserWindow;
@@ -6,23 +8,7 @@ export interface iDefaults {
 
 export interface iDefaultsAppData {
 	plugins: iDefaultsPlugin[];
-	settings: iDefaultsSettings;
-}
-
-export interface iDefaultsPlugin {
-	id: number;
-	name: string;
-	url: string;
-	active: boolean;
-	downloaded: boolean;
-}
-
-export interface iDefaultsSessionData {
-	activePlugins: number[];
-}
-
-export interface iDefaultsSettings {
-	autoUpdate: boolean;
+	settings: iSettings;
 }
 
 export interface iDefaultsBrowserWindow {
@@ -37,6 +23,20 @@ export interface iDefaultsBrowserWindow {
 
 export interface iDefaultsPaths {
 	home: string;
-	data: string;
+	dataDir: string;
+	pluginsDir: string;
 	plugins: string;
+	settings: string;
+}
+
+export interface iDefaultsPlugin {
+	id: number;
+	name: string;
+	url: string;
+	active: boolean;
+	downloaded: boolean;
+}
+
+export interface iDefaultsSessionData {
+	activePlugins: number[];
 }

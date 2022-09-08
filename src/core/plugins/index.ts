@@ -1,6 +1,6 @@
 import { readdir } from "fs/promises";
 import * as path from "path";
-import { iPlugin } from "../../../types/plugins";
+import { iPlugin } from "../../shared/types/plugins";
 
 /* 
 parse file for tracking downloaded and active plugins

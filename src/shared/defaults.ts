@@ -24,7 +24,9 @@ export const defaults: iDefaults = {
 	},
 	paths: {
 		home: HOME,
-		data: DATA,
-		plugins: path.join(DATA, "plugins"),
+		dataDir: DATA,
+		pluginsDir: path.join(DATA, "plugins"),
+		plugins: path.join(DATA, "plugins.tdp"),
+		settings: path.join(DATA, "settings.tdp"),
 	},
 };

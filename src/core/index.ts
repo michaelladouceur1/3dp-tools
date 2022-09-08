@@ -1,9 +1,9 @@
 import * as config from "./services/config";
+import * as ipcMain from "./services/ipc-main";
 
 export async function start() {
 	config.initialize();
-
-	// start ipc
+	ipcMain.initialize();
 
 	// load environment
 

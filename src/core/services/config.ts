@@ -2,15 +2,15 @@ import { mkdirSync, writeFileSync } from "fs";
 import * as path from "path";
 
 import { iDefaultsAppData, iDefaultsPaths } from "../../shared/types/defaults";
-import { defaults } from "../../../constants/defaults";
+import { defaults } from "../../shared/defaults";
 
 function initializeDirectories(paths: iDefaultsPaths) {
-	const { data, plugins } = paths;
+	const { dataDir, pluginsDir } = paths;
 
 	// create data directory
-	createDirectory(data);
+	createDirectory(dataDir);
 	// create plugins directory
-	createDirectory(plugins);
+	createDirectory(pluginsDir);
 
 	function createDirectory(path: string) {
 		try {
@@ -24,13 +24,13 @@ function initializeDirectories(paths: iDefaultsPaths) {
 }
 
 function initializeAppData(paths: iDefaultsPaths, appData: iDefaultsAppData) {
-	const { data } = paths;
-	const { plugins, settings } = appData;
+	const { plugins, settings } = paths;
+	const { plugins: pluginsData, settings: settingsData } = appData;
 
 	// create plugins file
-	createFile(path.join(data, "plugins.tdp"), plugins);
+	createFile(plugins, pluginsData);
 	// create settings file
-	createFile(path.join(data, "settings.tdp"), settings);
+	createFile(settings, settingsData);
 
 	function createFile(path: string, data: any) {
 		try {

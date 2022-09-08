@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 
-import { defaults } from "../constants/defaults";
+import { defaults } from "../src/shared/defaults";
 import * as core from "../src/core";
 import loader from "../src/core/plugins";
 
