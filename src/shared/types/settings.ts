@@ -1,8 +1,21 @@
 export interface iSettingsService {
-	getSettings: () => void;
-	saveSettings: (settings: iSettings) => void;
+	getSettings: () => Promise<iSettings>;
+	updateSettings: (settings: iSettings) => void;
+	updateSettingsField: <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => void;
 }
 
 export interface iSettings {
-	autoUpdate: boolean;
+	autoUpdate: {
+		description: string;
+		value: boolean;
+	};
+	themeMode: {
+		description: string;
+		value: "dark" | "light";
+	};
 }
+
+// export interface iSettingsField {
+// 	description: string;
+// 	value: any;
+// }

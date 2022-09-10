@@ -1,6 +1,9 @@
 export interface iStorageService {
-	saveData: (data: any, options: iFSSaveData) => void;
-	getData: () => Object;
+	updateData: (data: any, options: iFSUpdateData) => void;
+	updateDataField: (field: any, value: any) => void;
+	getData: () => any;
+	createStore: (data?: any) => void;
+	destroyStore: () => void;
 }
 
 export interface iFSOptions {
@@ -8,6 +11,6 @@ export interface iFSOptions {
 	encoding?: BufferEncoding;
 }
 
-export interface iFSSaveData {
+export interface iFSUpdateData {
 	type: "ow" | "now";
 }

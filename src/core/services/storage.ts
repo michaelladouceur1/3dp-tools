@@ -1,4 +1,4 @@
-import { iStorageService, iFSOptions, iFSSaveData } from "../../shared/types/storage";
+import { iStorageService, iFSOptions, iFSUpdateData } from "../../shared/types/storage";
 import { fileStorage } from "../../lib/file-storage";
 
 interface iStorageTypes {
@@ -13,9 +13,21 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, options: 
 		return await storageModule.getData();
 	}
 
-	async function saveData(data: any, options: iFSSaveData) {
-		return await storageModule.saveData(data, options);
+	async function updateData(data: any, options: iFSUpdateData) {
+		return await storageModule.updateData(data, options);
 	}
 
-	return { getData, saveData };
+	async function updateDataField(field: any, value: any) {
+		return await storageModule.updateDataField(field, value);
+	}
+
+	async function createStore(data: any) {
+		return await storageModule.createStore(data);
+	}
+
+	async function destroyStore() {
+		return await storageModule.destroyStore();
+	}
+
+	return { getData, updateData, updateDataField, createStore, destroyStore };
 }
