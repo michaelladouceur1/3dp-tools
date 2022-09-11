@@ -7,12 +7,12 @@ import { storage } from "./storage";
 import * as settingsModule from "./settings";
 import { iSettings } from "../../shared/types/settings";
 
-function initializeSettingsIPC() {
+function initializeSettingsIPC(window: any) {
 	const settingsStore = storage("file", { path: defaults.paths.settings });
 	const settings = settingsModule.settings(settingsStore);
 
 	const settingsData = (data: iSettings) => {
-		ipcMain.emit(ipcChannels.settings.data, data);
+		window.webContents.send(ipcChannels.settings.data, data);
 	};
 
 	ipcMain.handle(ipcChannels.settings.get, async (_: any) => {
@@ -30,6 +30,6 @@ function initializeSettingsIPC() {
 	});
 }
 
-export function initialize() {
-	initializeSettingsIPC();
+export function initialize(window: any) {
+	initializeSettingsIPC(window);
 }
