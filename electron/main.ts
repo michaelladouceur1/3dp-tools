@@ -38,12 +38,14 @@ function createWindow() {
 			hardResetMethod: "exit",
 		});
 	}
+
+	return win;
 }
 
 app.whenReady().then(() => {
-	createWindow();
+	const window = createWindow();
 
-	core.start();
+	core.start(window);
 	loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
 
 	app.on("activate", () => {

@@ -1,7 +1,7 @@
 export interface iSettingsService {
 	getSettings: () => Promise<iSettings>;
-	updateSettings: (settings: iSettings) => void;
-	updateSettingsField: <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => void;
+	updateSettings: (settings: iSettings) => Promise<iSettings>;
+	updateSettingsField: <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => Promise<iSettings>;
 }
 
 export interface iSettings {

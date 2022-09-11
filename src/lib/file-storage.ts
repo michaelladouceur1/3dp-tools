@@ -33,15 +33,34 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSe
 		}
 	}
 
-	async function updateDataField(field: any, value: any) {
+	// Function for updating values of nested objects
+	// "fields" value is passed as a string that can represent object dot notation (ie: autoUpdatePlugins.value)
+	//
+	// TODO: Check if the field exists before updating
+	function reduceData(data: any, fields: any, value: any) {
+		const fieldsArr = fields.split(".");
+
+		if (fieldsArr.length === 1) return { ...data, [fieldsArr[0]]: value };
+
+		const leftReduced = fieldsArr.reduce(
+			(acc: any, cv: any, idx: number, arr: any) => {
+				if (idx === arr.length - 1) return [...acc[1]];
+				return [acc[0][cv], [...acc[1], acc[0][cv]]];
+			},
+			[data, []]
+		);
+
+		const rightReduced = leftReduced.reduceRight((acc: any, cv: any, idx: number, arr: any) => {
+			if (idx === arr.length - 1) return { ...cv, [fieldsArr[idx + 1]]: value };
+			return { ...cv, [fieldsArr[idx + 1]]: acc };
+		}, leftReduced[leftReduced.length - 1]);
+
+		return { ...data, [fieldsArr[0]]: rightReduced };
+	}
+
+	async function updateDataField(fields: any, value: any) {
 		try {
-			const data = await getData();
-
-			if (data[field] === undefined) {
-				throw new Error(`updateDataField: data field "${field}" does not exist`);
-			}
-
-			await updateData({ ...data, [field]: value }, { type: "ow" });
+			await updateData(reduceData(await getData(), fields, value), { type: "ow" });
 		} catch (error) {
 			console.log(error);
 		}

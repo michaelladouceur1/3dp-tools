@@ -1,6 +1,8 @@
 export const ipcChannels = {
 	settings: {
+		data: "settings-data",
 		get: "get-settings",
-		save: "save-settings",
+		update: "update-settings",
+		update_field: "update-settings-field",
 	},
 };
