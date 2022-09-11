@@ -16,7 +16,7 @@ function initializeSettingsIPC() {
 	});
 
 	ipcMain.handle(ipcChannels.settings.save, async (_: any, data: iSettings) => {
-		await settings.saveSettings(data);
+		await settings.updateSettings(data);
 	});
 }
 
