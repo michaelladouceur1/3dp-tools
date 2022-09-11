@@ -10,7 +10,22 @@ export const defaults: iDefaults = {
 	appData: {
 		plugins: [],
 		settings: {
-			autoUpdate: true,
+			autoSave: {
+				description: "",
+				value: true,
+			},
+			autoSaveDelay: {
+				description: "",
+				value: 1000,
+			},
+			autoUpdatePlugins: {
+				description: "",
+				value: true,
+			},
+			themeMode: {
+				description: "",
+				value: "dark",
+			},
 		},
 	},
 	browserWindow: {

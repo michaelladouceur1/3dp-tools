@@ -10,6 +10,18 @@ export function settings(storage: iStorageService): iSettingsService {
 		await storage.updateData(settings, { type: "ow" });
 	}
 
+	// TODO: add callback object for performing actions after settings field update
+	/*
+		Example:
+		settingsActions = {
+			autoUpdate: (value: boolean) => {
+				if(value) {
+					check for plugin updates
+				}
+			},
+			...
+		}
+	*/
 	async function updateSettingsField<T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) {
 		await storage.updateDataField(field, value);
 	}

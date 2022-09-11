@@ -5,7 +5,15 @@ export interface iSettingsService {
 }
 
 export interface iSettings {
-	autoUpdate: {
+	autoSave: {
+		description: string;
+		value: boolean;
+	};
+	autoSaveDelay: {
+		description: string;
+		value: number;
+	};
+	autoUpdatePlugins: {
 		description: string;
 		value: boolean;
 	};
