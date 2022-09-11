@@ -11,12 +11,22 @@ function initializeSettingsIPC() {
 	const settingsStore = storage("file", { path: defaults.paths.settings });
 	const settings = settingsModule.settings(settingsStore);
 
+	const settingsData = (data: iSettings) => {
+		ipcMain.emit(ipcChannels.settings.data, data);
+	};
+
 	ipcMain.handle(ipcChannels.settings.get, async (_: any) => {
 		return await settings.getSettings();
 	});
 
-	ipcMain.handle(ipcChannels.settings.save, async (_: any, data: iSettings) => {
-		await settings.saveSettings(data);
+	ipcMain.handle(ipcChannels.settings.update, async (_: any, data: iSettings) => {
+		const response = await settings.updateSettings(data);
+		settingsData(response);
+	});
+
+	ipcMain.handle(ipcChannels.settings.update_field, async <T extends keyof iSettings>(_: any, field: T, value: iSettings[T]["value"]) => {
+		const response = await settings.updateSettingsField(field, value);
+		settingsData(response);
 	});
 }
 

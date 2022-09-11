@@ -4,12 +4,12 @@ import * as ipcMain from "./services/ipc-main";
 export async function start() {
 	config.initialize();
 
-	// initialize services
+	// initialize services?
 
 	// initialize ipcMain
 	ipcMain.initialize();
 
-	// load environment
+	// load environment?
 
 	// download/load plugins
 }

@@ -6,8 +6,9 @@ export function settings(storage: iStorageService): iSettingsService {
 		return await storage.getData();
 	}
 
-	async function updateSettings(settings: iSettings) {
+	async function updateSettings(settings: iSettings): Promise<iSettings> {
 		await storage.updateData(settings, { type: "ow" });
+		return await getSettings();
 	}
 
 	// TODO: add callback object for performing actions after settings field update
@@ -22,8 +23,9 @@ export function settings(storage: iStorageService): iSettingsService {
 			...
 		}
 	*/
-	async function updateSettingsField<T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) {
+	async function updateSettingsField<T extends keyof iSettings>(field: T, value: iSettings[T]["value"]): Promise<iSettings> {
 		await storage.updateDataField(field, value);
+		return await getSettings();
 	}
 
 	return { getSettings, updateSettings, updateSettingsField };
