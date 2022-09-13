@@ -1,17 +1,19 @@
 export interface iStorageService {
-	getState: () => any;
-	setState: (data: any, options: iFSUpdateData) => void;
-	setStateField: (field: any, value: any) => void;
 	createStore: (data?: any) => void;
 	destroyStore: () => void;
+	getState: () => Promise<any>;
+	setState: (data: any, options: iFSSetState) => Promise<any>;
+	setStateField: (field: any, value: any, options: iFSSetState) => Promise<any>;
+	setSavedState: (data: any, options: iFSSetState) => Promise<void>;
 }
 
 export interface iFSOptions {
 	path: string;
 	encoding?: BufferEncoding;
-	saveDelay?: number;
 }
 
-export interface iFSUpdateData {
+export interface iFSSetState {
 	type: "ow" | "now";
+	save?: boolean;
+	saveDelay?: number;
 }

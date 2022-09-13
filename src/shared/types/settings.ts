@@ -4,6 +4,7 @@ export interface iSettingsService {
 	updateSettingsField: <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => Promise<iSettings>;
 }
 
+// TODO: separate settings into distinct sections (UI, System, etc.)
 export interface iSettings {
 	autoSave: {
 		description: string;
@@ -17,9 +18,24 @@ export interface iSettings {
 		description: string;
 		value: boolean;
 	};
+	backup: {
+		description: string;
+		value: boolean;
+	};
+	backupFrequency: {
+		description: string;
+		value: number;
+	};
 	themeMode: {
 		description: string;
 		value: "dark" | "light";
+	};
+	themeModeColors: {
+		description: string;
+		value: {
+			dark: string;
+			light: string;
+		};
 	};
 }
 

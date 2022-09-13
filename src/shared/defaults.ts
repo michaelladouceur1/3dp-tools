@@ -22,9 +22,24 @@ export const defaults: iDefaults = {
 				description: "",
 				value: true,
 			},
+			backup: {
+				description: "",
+				value: true,
+			},
+			backupFrequency: {
+				description: "",
+				value: 86400000, // milliseconds in a day
+			},
 			themeMode: {
 				description: "",
 				value: "dark",
+			},
+			themeModeColors: {
+				description: "",
+				value: {
+					dark: "#111",
+					light: "#fff",
+				},
 			},
 		},
 	},

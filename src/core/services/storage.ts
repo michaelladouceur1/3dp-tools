@@ -1,4 +1,4 @@
-import { iStorageService, iFSOptions, iFSUpdateData } from "../../shared/types/storage";
+import { iStorageService, iFSOptions, iFSSetState } from "../../shared/types/storage";
 import { fileStorage } from "../../lib/file-storage";
 
 interface iStorageTypes {
@@ -9,18 +9,6 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, options: 
 	const storageModules = { file: fileStorage(options) };
 	const storageModule = storageModules[storageType];
 
-	async function getState() {
-		return await storageModule.getState();
-	}
-
-	async function setState(data: any, options: iFSUpdateData) {
-		return await storageModule.setState(data, options);
-	}
-
-	async function setStateField(field: any, value: any) {
-		return await storageModule.setStateField(field, value);
-	}
-
 	async function createStore(data: any) {
 		return await storageModule.createStore(data);
 	}
@@ -29,5 +17,21 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, options: 
 		return await storageModule.destroyStore();
 	}
 
-	return { getState, setState, setStateField, createStore, destroyStore };
+	async function getState() {
+		return await storageModule.getState();
+	}
+
+	async function setState(data: any, options: iFSSetState) {
+		return await storageModule.setState(data, options);
+	}
+
+	async function setStateField(field: any, value: any, options: iFSSetState) {
+		return await storageModule.setStateField(field, value, options);
+	}
+
+	async function setSavedState(data: any, options: iFSSetState) {
+		return await storageModule.setSavedState(data, options);
+	}
+
+	return { createStore, destroyStore, getState, setState, setStateField, setSavedState };
 }

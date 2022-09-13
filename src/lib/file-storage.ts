@@ -1,30 +1,18 @@
 import { mkdir, readFile, writeFile, rm } from "fs/promises";
 
-import { iStorageService, iFSOptions, iFSUpdateData } from "../shared/types/storage";
+import { iStorageService, iFSOptions, iFSSetState } from "../shared/types/storage";
 
-export function fileStorage({ path, encoding = "utf8", saveDelay = 3000 }: iFSOptions): iStorageService {
-	let state: any;
-	let fileStorageTimeout: any;
-	initState();
-
+export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageService {
 	if (path === "") {
 		throw new Error('fileStorage option: "path" can not be an empty string');
 	}
 
-	async function getState() {
-		return state;
-	}
+	let state: any;
+	let fileStorageTimeout: any;
+	initState();
 
-	async function setState(data: any, options: iFSUpdateData) {
-		state = data;
-		updateDiskState(state, options);
-		return state;
-	}
-
-	async function setStateField(fields: string, value: any) {
-		state = reduceData(state, fields, value);
-		updateDiskState(state, { type: "ow" });
-		return state;
+	async function initState() {
+		state = await getSavedState();
 	}
 
 	async function createStore(data: any) {
@@ -39,25 +27,30 @@ export function fileStorage({ path, encoding = "utf8", saveDelay = 3000 }: iFSOp
 		}
 	}
 
-	async function initState() {
-		state = await getDiskState();
+	async function getState() {
+		return state;
 	}
 
-	async function getDiskState() {
-		try {
-			const data = await readFile(path, { encoding: encoding });
-			return JSON.parse(data);
-		} catch (error) {
-			console.log(error);
+	async function setState(data: any, { type, save = true, saveDelay = 3000 }: iFSSetState) {
+		state = data;
+		if (save) {
+			setSavedState(state, { type: type, saveDelay: saveDelay });
 		}
+		return state;
 	}
 
-	async function updateDiskState(data: any, options: iFSUpdateData) {
+	async function setStateField(fields: string, value: any, { type, save = true, saveDelay = 3000 }: iFSSetState) {
+		state = reduceData(state, fields, value);
+		if (save) {
+			setSavedState(state, { type: type, saveDelay: saveDelay });
+		}
+		return state;
+	}
+
+	async function setSavedState(data: any, { type, saveDelay = 0 }: iFSSetState) {
 		if (fileStorageTimeout) {
 			clearTimeout(fileStorageTimeout);
 		}
-
-		const { type } = options;
 
 		const flags = {
 			ow: "w",
@@ -73,6 +66,15 @@ export function fileStorage({ path, encoding = "utf8", saveDelay = 3000 }: iFSOp
 			if (error.code !== "EEXIST") {
 				console.log(error);
 			}
+		}
+	}
+
+	async function getSavedState() {
+		try {
+			const data = await readFile(path, { encoding: encoding });
+			return JSON.parse(data);
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
@@ -101,5 +103,5 @@ export function fileStorage({ path, encoding = "utf8", saveDelay = 3000 }: iFSOp
 		return { ...data, [fieldsArr[0]]: rightReduced };
 	}
 
-	return { getState, setState, setStateField, createStore, destroyStore };
+	return { createStore, destroyStore, getState, setState, setStateField, setSavedState };
 }
