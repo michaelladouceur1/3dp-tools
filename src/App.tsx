@@ -31,16 +31,27 @@ function App() {
 			description: "",
 			value: 86400000, // milliseconds in a day
 		},
-		themeMode: {
+		uiMode: {
 			description: "",
 			value: "dark",
 		},
-		themeModeColors: {
+		uiBackgroundColors: {
 			description: "",
 			value: {
 				dark: "#111",
 				light: "#fff",
 			},
+		},
+		uiFontColors: {
+			description: "",
+			value: {
+				dark: "#fff",
+				light: "#111",
+			},
+		},
+		uiFontFamily: {
+			description: "",
+			value: "sans-serif",
 		},
 	});
 
@@ -49,7 +60,7 @@ function App() {
 		onSettingsData(setSettings);
 	}, []);
 
-	const bgColor = settings.themeMode.value === "dark" ? settings.themeModeColors.value.dark : settings.themeModeColors.value.light;
+	const bgColor = settings.uiMode.value === "dark" ? settings.uiBackgroundColors.value.dark : settings.uiBackgroundColors.value.light;
 
 	return (
 		<body style={{ backgroundColor: bgColor, margin: 0, width: "100%", height: "100%" }}>
@@ -64,11 +75,23 @@ function App() {
 			</div>
 			<div>
 				<label>Theme Mode</label>
-				<select onChange={(e) => updateSettingsField("themeMode.value", e.target.value)} value={settings.themeMode.value}>
+				<select onChange={(e) => updateSettingsField("uiMode.value", e.target.value)} value={settings.uiMode.value}>
 					<option value="dark">Dark</option>
 					<option value="light">Light</option>
-					<option value="custom">Custom</option>
 				</select>
+			</div>
+			<div>
+				<label>Theme Color</label>
+				<p>{settings.uiMode.value === "dark" ? settings.uiBackgroundColors.value.dark : settings.uiBackgroundColors.value.light}</p>
+				<input
+					type="color"
+					style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+					onChange={(e) =>
+						setTimeout(() => {
+							updateSettingsField(`uiBackgroundColors.value.${settings.uiMode.value}`, e.target.value);
+						}, 2000)
+					}
+				/>
 			</div>
 			<div>
 				<label>Auto Save Delay</label>

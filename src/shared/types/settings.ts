@@ -26,16 +26,27 @@ export interface iSettings {
 		description: string;
 		value: number;
 	};
-	themeMode: {
+	uiMode: {
 		description: string;
 		value: "dark" | "light";
 	};
-	themeModeColors: {
+	uiBackgroundColors: {
 		description: string;
 		value: {
 			dark: string;
 			light: string;
 		};
+	};
+	uiFontColors: {
+		description: string;
+		value: {
+			dark: string;
+			light: string;
+		};
+	};
+	uiFontFamily: {
+		description: string;
+		value: string;
 	};
 }
 

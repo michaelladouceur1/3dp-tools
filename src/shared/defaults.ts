@@ -30,16 +30,27 @@ export const defaults: iDefaults = {
 				description: "",
 				value: 86400000, // milliseconds in a day
 			},
-			themeMode: {
+			uiMode: {
 				description: "",
 				value: "dark",
 			},
-			themeModeColors: {
+			uiBackgroundColors: {
 				description: "",
 				value: {
 					dark: "#111",
 					light: "#fff",
 				},
+			},
+			uiFontColors: {
+				description: "",
+				value: {
+					dark: "#fff",
+					light: "#111",
+				},
+			},
+			uiFontFamily: {
+				description: "",
+				value: "sans-serif",
 			},
 		},
 	},
