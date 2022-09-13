@@ -1,16 +1,8 @@
 import { ipcMain } from "electron";
+import { ipcChannels } from "../shared/ipc-channels";
+import { iSettingsService, iSettings } from "../shared/types/settings";
 
-import { defaults } from "../../shared/defaults";
-import { ipcChannels } from "../../shared/ipc-channels";
-import { storage } from "./storage";
-
-import * as settingsModule from "./settings";
-import { iSettings } from "../../shared/types/settings";
-
-function initializeSettingsIPC(window: any) {
-	const settingsStore = storage("file", { path: defaults.paths.settings });
-	const settings = settingsModule.settings(settingsStore);
-
+function initializeSettingsIPC(window: any, settings: iSettingsService) {
 	const settingsData = (data: iSettings) => {
 		window.webContents.send(ipcChannels.settings.data, data);
 	};
@@ -30,6 +22,6 @@ function initializeSettingsIPC(window: any) {
 	});
 }
 
-export function initialize(window: any) {
-	initializeSettingsIPC(window);
+export function initialize(window: any, services: any) {
+	initializeSettingsIPC(window, services.settings);
 }

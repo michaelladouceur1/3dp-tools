@@ -1,8 +1,7 @@
 import { mkdirSync, writeFileSync } from "fs";
-import * as path from "path";
 
-import { iDefaultsAppData, iDefaultsPaths } from "../../shared/types/defaults";
-import { defaults } from "../../shared/defaults";
+import { iDefaultsAppData, iDefaultsPaths } from "../shared/types/defaults";
+import { defaults } from "../shared/defaults";
 
 function initializeDirectories(paths: iDefaultsPaths) {
 	const { dataDir, pluginsDir } = paths;

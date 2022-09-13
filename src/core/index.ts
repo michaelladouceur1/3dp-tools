@@ -1,13 +1,11 @@
-import * as config from "./services/config";
-import * as ipcMain from "./services/ipc-main";
+import * as config from "./config";
+import * as srvcs from "./services";
+import * as ipcMain from "./ipc-main";
 
 export async function start(window: any) {
 	config.initialize();
-
-	// TODO: initialize services?
-
-	// initialize ipcMain
-	ipcMain.initialize(window);
+	const services = srvcs.initialize();
+	ipcMain.initialize(window, services);
 
 	// TODO: download/load plugins
 }
