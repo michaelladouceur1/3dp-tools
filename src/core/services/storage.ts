@@ -9,16 +9,16 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, options: 
 	const storageModules = { file: fileStorage(options) };
 	const storageModule = storageModules[storageType];
 
-	async function getData() {
-		return await storageModule.getData();
+	async function getState() {
+		return await storageModule.getState();
 	}
 
-	async function updateData(data: any, options: iFSUpdateData) {
-		return await storageModule.updateData(data, options);
+	async function setState(data: any, options: iFSUpdateData) {
+		return await storageModule.setState(data, options);
 	}
 
-	async function updateDataField(field: any, value: any) {
-		return await storageModule.updateDataField(field, value);
+	async function setStateField(field: any, value: any) {
+		return await storageModule.setStateField(field, value);
 	}
 
 	async function createStore(data: any) {
@@ -29,5 +29,5 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, options: 
 		return await storageModule.destroyStore();
 	}
 
-	return { getData, updateData, updateDataField, createStore, destroyStore };
+	return { getState, setState, setStateField, createStore, destroyStore };
 }

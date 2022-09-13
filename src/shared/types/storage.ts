@@ -1,7 +1,7 @@
 export interface iStorageService {
-	updateData: (data: any, options: iFSUpdateData) => void;
-	updateDataField: (field: any, value: any) => void;
-	getData: () => any;
+	getState: () => any;
+	setState: (data: any, options: iFSUpdateData) => void;
+	setStateField: (field: any, value: any) => void;
 	createStore: (data?: any) => void;
 	destroyStore: () => void;
 }
@@ -9,6 +9,7 @@ export interface iStorageService {
 export interface iFSOptions {
 	path: string;
 	encoding?: BufferEncoding;
+	saveDelay?: number;
 }
 
 export interface iFSUpdateData {

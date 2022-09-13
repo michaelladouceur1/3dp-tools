@@ -46,7 +46,10 @@ function App() {
 			</div>
 			<div>
 				<label>Theme Mode</label>
-				<p>{settings.themeMode?.value}</p>
+				<select onChange={(e) => updateSettingsField("themeMode.value", e.target.value)}>
+					<option value="dark">Dark</option>
+					<option value="light">Light</option>
+				</select>
 			</div>
 		</>
 	);

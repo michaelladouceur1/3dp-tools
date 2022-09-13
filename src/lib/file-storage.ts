@@ -2,12 +2,48 @@ import { mkdir, readFile, writeFile, rm } from "fs/promises";
 
 import { iStorageService, iFSOptions, iFSUpdateData } from "../shared/types/storage";
 
-export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageService {
+export function fileStorage({ path, encoding = "utf8", saveDelay = 3000 }: iFSOptions): iStorageService {
+	let state: any;
+	let fileStorageTimeout: any;
+	initState();
+
 	if (path === "") {
 		throw new Error('fileStorage option: "path" can not be an empty string');
 	}
 
-	async function getData() {
+	async function getState() {
+		return state;
+	}
+
+	async function setState(data: any, options: iFSUpdateData) {
+		state = data;
+		updateDiskState(state, options);
+		return state;
+	}
+
+	async function setStateField(fields: string, value: any) {
+		state = reduceData(state, fields, value);
+		updateDiskState(state, { type: "ow" });
+		return state;
+	}
+
+	async function createStore(data: any) {
+		data ? await setState(data, { type: "now" }) : await setState("", { type: "now" });
+	}
+
+	async function destroyStore() {
+		try {
+			await rm(path);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function initState() {
+		state = await getDiskState();
+	}
+
+	async function getDiskState() {
 		try {
 			const data = await readFile(path, { encoding: encoding });
 			return JSON.parse(data);
@@ -16,7 +52,11 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSe
 		}
 	}
 
-	async function updateData(data: any, options: iFSUpdateData) {
+	async function updateDiskState(data: any, options: iFSUpdateData) {
+		if (fileStorageTimeout) {
+			clearTimeout(fileStorageTimeout);
+		}
+
 		const { type } = options;
 
 		const flags = {
@@ -25,7 +65,10 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSe
 		};
 
 		try {
-			await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
+			fileStorageTimeout = setTimeout(async () => {
+				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
+				fileStorageTimeout = undefined;
+			}, saveDelay);
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);
@@ -58,25 +101,5 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSe
 		return { ...data, [fieldsArr[0]]: rightReduced };
 	}
 
-	async function updateDataField(fields: any, value: any) {
-		try {
-			await updateData(reduceData(await getData(), fields, value), { type: "ow" });
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	async function createStore(data: any) {
-		data ? await updateData(data, { type: "now" }) : await updateData("", { type: "now" });
-	}
-
-	async function destroyStore() {
-		try {
-			await rm(path);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	return { getData, updateData, updateDataField, createStore, destroyStore };
+	return { getState, setState, setStateField, createStore, destroyStore };
 }
