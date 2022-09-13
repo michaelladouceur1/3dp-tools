@@ -1,10 +1,11 @@
 import { iSettings } from "./shared/types/settings";
-// import { ipcRenderer } from "electron";
 import { useState, useEffect } from "react";
 
 function App() {
-	const getSettings = async () => {
-		const data = await window.api.settings.getSettings();
+	const { onSettingsData, getSettings, updateSettingsField } = window.api.settings;
+
+	const initSettings = async () => {
+		const data = await getSettings();
 		setSettings(data);
 	};
 
@@ -28,9 +29,8 @@ function App() {
 	});
 
 	useEffect(() => {
-		getSettings();
-
-		window.api.settings.onSettingsData(setSettings);
+		initSettings();
+		onSettingsData(setSettings);
 	}, []);
 
 	return (
@@ -40,8 +40,8 @@ function App() {
 				<label>Auto Update</label>
 				<input
 					type="checkbox"
-					checked={settings.autoUpdatePlugins?.value}
-					onChange={() => window.api.settings.updateSettingsField("autoUpdatePlugins.value", !settings.autoUpdatePlugins.value)}
+					checked={settings.autoUpdatePlugins.value}
+					onChange={() => updateSettingsField("autoUpdatePlugins.value", !settings.autoUpdatePlugins.value)}
 				></input>
 			</div>
 			<div>
