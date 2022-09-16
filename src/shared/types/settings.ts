@@ -1,4 +1,7 @@
+import { iStorageService } from "./storage";
+
 export interface iSettingsService {
+	store: () => iStorageService;
 	getSettings: () => Promise<iSettings>;
 	updateSettings: (settings: iSettings) => Promise<iSettings>;
 	updateSettingsField: <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => Promise<iSettings>;

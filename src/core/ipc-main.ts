@@ -44,22 +44,22 @@ function initializeSystemIPC(window: BrowserWindow) {
 }
 
 function initializeSettingsIPC(window: BrowserWindow, settings: iSettingsService) {
-	const settingsData = (data: iSettings) => {
+	const settingsStateEmitter = settings.store().getStateEmitter();
+
+	settingsStateEmitter.on(ipcChannels.settings.data, (data: any) => {
 		window.webContents.send(ipcChannels.settings.data, data);
-	};
+	});
 
 	ipcMain.handle(ipcChannels.settings.get, async (_: any) => {
 		return await settings.getSettings();
 	});
 
 	ipcMain.handle(ipcChannels.settings.update, async (_: any, data: iSettings) => {
-		const response = await settings.updateSettings(data);
-		settingsData(response);
+		return await settings.updateSettings(data);
 	});
 
 	ipcMain.handle(ipcChannels.settings.update_field, async <T extends keyof iSettings>(_: any, field: T, value: iSettings[T]["value"]) => {
-		const response = await settings.updateSettingsField(field, value);
-		settingsData(response);
+		return await settings.updateSettingsField(field, value);
 	});
 }
 

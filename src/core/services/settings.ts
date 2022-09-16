@@ -2,10 +2,15 @@ import { iSettingsService, iSettings } from "../../shared/types/settings";
 import { iStorageService } from "../../shared/types/storage";
 
 export function settings(storage: iStorageService): iSettingsService {
+	function store() {
+		return storage;
+	}
+
 	async function getSettings(): Promise<iSettings> {
 		return await storage.getState();
 	}
 
+	// TODO: Update function to take iFSSetState options in order to allow for saving immediately or create new function specifically for saving state to disk immediately
 	async function updateSettings(settings: iSettings): Promise<iSettings> {
 		const { autoSave, autoSaveDelay } = await getSettings();
 		await storage.setState(settings, { type: "ow", save: autoSave.value, saveDelay: autoSaveDelay.value });
@@ -30,5 +35,5 @@ export function settings(storage: iStorageService): iSettingsService {
 		return await getSettings();
 	}
 
-	return { getSettings, updateSettings, updateSettingsField };
+	return { store, getSettings, updateSettings, updateSettingsField };
 }
