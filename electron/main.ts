@@ -3,9 +3,8 @@ import * as path from "path";
 
 import { defaults } from "../src/shared/defaults";
 import * as core from "../src/core";
-// import { plugins } from "../src/core/services";
-// import { loader } from "../src/core/services/plugins";
 
+// TODO: Limit screen instance to one
 function createWindow() {
 	const { browserWindow } = defaults;
 
@@ -47,7 +46,6 @@ app.whenReady().then(() => {
 	const window = createWindow();
 
 	core.start(window);
-	// loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"));
 
 	app.on("activate", () => {
 		if (BrowserWindow.getAllWindows().length === 0) {
