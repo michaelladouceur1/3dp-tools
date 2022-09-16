@@ -15,7 +15,6 @@ load plugins and return
 // TODO: Read pluginsDirectory and load directories accordingly
 export function plugins(storage: iStorageService, services: iServices) {
 	const plugins = [];
-	// const basePlugin = new BasePlugin(services);
 
 	// async function getLocalPlugins(): Promise<iPlugin[]> {
 	// 	return await storage.getState();
