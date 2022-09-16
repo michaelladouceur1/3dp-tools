@@ -63,6 +63,7 @@ export const defaults: iDefaults = {
 		title: "3DP Tools",
 		frame: true,
 	},
+	// TODO: Update all paths to rely on app.getPath("userData") to ensure it's getting the most up-to-date userData directory
 	paths: {
 		home: HOME,
 		dataDir: DATA,
