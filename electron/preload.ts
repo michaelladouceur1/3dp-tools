@@ -5,6 +5,11 @@ import { iSettings } from "../src/shared/types/settings";
 declare const window: any;
 
 window.api = {
+	system: {
+		download: async (downloadUrl: string, target?: "plugins") => {
+			ipcRenderer.send(ipcChannels.system.download, downloadUrl, target);
+		},
+	},
 	settings: {
 		onSettingsData: (callback: Function) => {
 			ipcRenderer.on("settings-data", async (_: any, data: any) => {

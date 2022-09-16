@@ -4,6 +4,7 @@ import { defaults } from "./shared/defaults";
 
 function App() {
 	const { onSettingsData, getSettings, updateSettingsField } = window.api.settings;
+	const { download } = window.api.system;
 
 	const initSettings = async () => {
 		const data = await getSettings();
@@ -54,6 +55,7 @@ function App() {
 			value: "sans-serif",
 		},
 	});
+	const [downloadUrl, setDownloadUrl] = useState("");
 
 	useEffect(() => {
 		initSettings();
@@ -96,6 +98,11 @@ function App() {
 			<div>
 				<label>Auto Save Delay</label>
 				<input type="text" value={settings.autoSaveDelay.value} onChange={(e) => updateSettingsField("autoSaveDelay.value", e.target.value)}></input>
+			</div>
+			<div>
+				<label>Download</label>
+				<input value={downloadUrl} onChange={(e) => setDownloadUrl(e.target.value)} />
+				<button onClick={() => download(downloadUrl, "plugins")}>Download</button>
 			</div>
 		</body>
 	);

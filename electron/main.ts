@@ -3,7 +3,7 @@ import * as path from "path";
 
 import { defaults } from "../src/shared/defaults";
 import * as core from "../src/core";
-import loader from "../src/core/plugins";
+// import { plugins } from "../src/core/services";
 
 function createWindow() {
 	const { browserWindow } = defaults;
@@ -46,7 +46,7 @@ app.whenReady().then(() => {
 	const window = createWindow();
 
 	core.start(window);
-	loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
+	// loader(path.join("/", "home", "michael", "Documents", "Coding", "Projects", "3dp-tools-plugins"), [{ id: 1, name: "test-plugin" }]);
 
 	app.on("activate", () => {
 		if (BrowserWindow.getAllWindows().length === 0) {

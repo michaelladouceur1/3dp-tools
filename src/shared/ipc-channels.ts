@@ -1,4 +1,7 @@
 export const ipcChannels = {
+	system: {
+		download: "download",
+	},
 	settings: {
 		data: "settings-data",
 		get: "get-settings",

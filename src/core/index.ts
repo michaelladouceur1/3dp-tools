@@ -8,4 +8,5 @@ export async function start(window: any) {
 	ipcMain.initialize(window, services);
 
 	// TODO: download/load plugins
+	services.plugins.load();
 }
