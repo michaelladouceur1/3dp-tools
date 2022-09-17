@@ -88,11 +88,7 @@ function App() {
 				<input
 					type="color"
 					style={{ width: "30px", height: "30px", borderRadius: "50%" }}
-					onChange={(e) =>
-						setTimeout(() => {
-							updateSettingsField(`uiBackgroundColors.value.${settings.uiMode.value}`, e.target.value);
-						}, 2000)
-					}
+					onChange={(e) => updateSettingsField(`uiBackgroundColors.value.${settings.uiMode.value}`, e.target.value)}
 				/>
 			</div>
 			<div>
