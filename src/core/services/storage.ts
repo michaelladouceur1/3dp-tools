@@ -50,6 +50,23 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 		return await storageModule.setSavedState(state, options);
 	}
 
+	async function setStateItem(item: any, options: iFSSetState) {
+		if (!Array.isArray(state)) return;
+		if (item.id === undefined) return;
+
+		await setStateWithoutSave([...state.filter((i: any) => i.id !== item.id), item]);
+		return await storageModule.setSavedState(state, options);
+	}
+
+	async function setStateItemField(id: number, field: any, value: any, options: iFSSetState) {
+		if (!Array.isArray(state)) return;
+
+		const item = state.filter((i: any) => i.id === id);
+		const reducedItem = reduceData(item, field, value);
+		await setStateWithoutSave([...state.filter((i) => i.id !== id), reducedItem]);
+		return await storageModule.setSavedState(state, options);
+	}
+
 	async function setStateWithoutSave(data: any) {
 		state = data;
 		stateChange();
@@ -67,6 +84,7 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 
 		const leftReduced = fieldsArr.reduce(
 			(acc: any, cv: any, idx: number, arr: any) => {
+				console.log("Left: ", acc);
 				if (idx === arr.length - 1) return [...acc[1]];
 				return [acc[0][cv], [...acc[1], acc[0][cv]]];
 			},
@@ -74,6 +92,7 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 		);
 
 		const rightReduced = leftReduced.reduceRight((acc: any, cv: any, idx: number, arr: any) => {
+			console.log("Right: ", acc);
 			if (idx === arr.length - 1) return { ...cv, [fieldsArr[idx + 1]]: value };
 			return { ...cv, [fieldsArr[idx + 1]]: acc };
 		}, leftReduced[leftReduced.length - 1]);
@@ -81,5 +100,5 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 		return { ...data, [fieldsArr[0]]: rightReduced };
 	}
 
-	return { getStateEmitter, createStore, destroyStore, getState, setState, setStateField };
+	return { getStateEmitter, createStore, destroyStore, getState, setState, setStateField, setStateItem, setStateItemField };
 }

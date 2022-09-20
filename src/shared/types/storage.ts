@@ -7,6 +7,8 @@ export interface iStorageService {
 	getState: () => Promise<any>;
 	setState: (data: any, options: iFSSetState) => Promise<any>;
 	setStateField: (field: any, value: any, options: iFSSetState) => Promise<any>;
+	setStateItem: (item: any, options: iFSSetState) => Promise<any>;
+	setStateItemField: (id: number, field: any, value: any, options: iFSSetState) => Promise<any>;
 }
 
 export interface iStorageSaveService {
