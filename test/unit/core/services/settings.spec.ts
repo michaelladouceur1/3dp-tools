@@ -11,35 +11,33 @@ const TMP_PATH = "./test/unit/core/services/settings-service-tmp.tdp";
 let settings: iSettingsService;
 let storage: iStorageService;
 
-const TEST_DATA = { autoUpdate: false, themeMode: "dark" };
+const TEST_DATA = { autoSave: { description: "", value: false }, autoSaveDelay: { description: "", value: 0 }, uiMode: { description: "", value: "dark" } };
 
 describe("settings service", () => {
-	beforeAll(async () => {
-		storage = storageService.storage("file", { path: TMP_PATH });
-	});
+	// beforeAll(async () => {
+	// 	storage = storageService.storage("file", "", { path: TMP_PATH });
+	// });
 
 	beforeEach(async () => {
-		storage.createStore(TEST_DATA);
-		settings = settingsService.settings(storage);
+		storage = storageService.storage("file", "", { path: TMP_PATH });
+		await storage.createStore(TEST_DATA);
+		settings = await settingsService.settings(storage);
 	});
 
 	afterEach(async () => {
 		storage.destroyStore();
 	});
 
-	async function updateAndCheckField<T extends keyof iSettings>(field: T, initialValue: iSettings[T]["value"], value: iSettings[T]["value"]) {
-		const resultBefore = await settings.getSettings();
-		expect(resultBefore[field]).toBe(initialValue);
-
-		await settings.updateSettingsField(field, value);
-		const resultAfter = await settings.getSettings();
-		expect(resultAfter[field]).toBe(value);
-	}
-
 	describe("updateSettingsField", () => {
 		it("updates individual settings fields", async () => {
-			await updateAndCheckField("autoUpdate", false, true);
-			await updateAndCheckField("themeMode", "dark", "light");
+			const resultBefore = await settings.getSettings();
+			expect(resultBefore["autoSave"]["value"]).toBe(false);
+
+			await settings.updateSettingsField("autoSave.value", true);
+			const resultAfter = await settings.getSettings();
+			expect(resultAfter["autoSave"]["value"]).toBe(true);
+			// await updateAndCheckField("autoSave.value", false, true);
+			// await updateAndCheckField("uiMode.value", "dark", "light");
 		});
 	});
 });

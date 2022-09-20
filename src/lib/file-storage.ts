@@ -13,7 +13,7 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSa
 	let fileStorageTimeout: any;
 
 	async function createStore(data: any) {
-		await setSavedState(data, { type: "now", saveDelay: 0 });
+		data ? await setSavedState(data, { type: "now", saveDelay: 0 }) : await setSavedState("", { type: "now", saveDelay: 0 });
 	}
 
 	async function destroyStore() {
@@ -44,6 +44,12 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSa
 		};
 
 		try {
+			if (saveDelay === 0) {
+				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
+				fileStorageTimeout = undefined;
+				return;
+			}
+
 			fileStorageTimeout = setTimeout(async () => {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;

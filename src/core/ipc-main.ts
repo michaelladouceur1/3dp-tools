@@ -4,7 +4,7 @@ import * as path from "path";
 import { ipcChannels } from "../shared/ipc-channels";
 import { defaults } from "../shared/defaults";
 import { unzip } from "./utils";
-import { iSettingsService, iSettings } from "../shared/types/settings";
+import { iSettingsService, iSettings, iSettingsMutableFields } from "../shared/types/settings";
 
 function initializeSystemIPC(window: BrowserWindow) {
 	ipcMain.on(ipcChannels.system.download, async (_: any, downloadUrl: string, target?: "plugins") => {
@@ -58,7 +58,7 @@ function initializeSettingsIPC(window: BrowserWindow, settings: iSettingsService
 		return await settings.updateSettings(data);
 	});
 
-	ipcMain.handle(ipcChannels.settings.update_field, async <T extends keyof iSettings>(_: any, field: T, value: iSettings[T]["value"]) => {
+	ipcMain.handle(ipcChannels.settings.update_field, async <T extends keyof iSettingsMutableFields>(_: any, field: T, value: iSettingsMutableFields[T]) => {
 		return await settings.updateSettingsField(field, value);
 	});
 }

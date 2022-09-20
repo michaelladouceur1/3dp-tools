@@ -1,4 +1,4 @@
-import { iSettingsService, iSettings } from "../../shared/types/settings";
+import { iSettingsService, iSettings, iSettingsMutableFields } from "../../shared/types/settings";
 import { iStorageService } from "../../shared/types/storage";
 
 export function settings(storage: iStorageService): iSettingsService {
@@ -18,6 +18,7 @@ export function settings(storage: iStorageService): iSettingsService {
 	}
 
 	// TODO: add callback object for performing actions after settings field update
+	// TODO: add default values for autoSave and autoSaveDelay
 	/*
 		Example:
 		settingsActions = {
@@ -29,7 +30,7 @@ export function settings(storage: iStorageService): iSettingsService {
 			...
 		}
 	*/
-	async function updateSettingsField<T extends keyof iSettings>(field: T, value: iSettings[T]["value"]): Promise<iSettings> {
+	async function updateSettingsField<T extends keyof iSettingsMutableFields>(field: T, value: iSettingsMutableFields[T]): Promise<iSettings> {
 		const { autoSave, autoSaveDelay } = await getSettings();
 		await storage.setStateField(field, value, { type: "ow", save: autoSave.value, saveDelay: autoSaveDelay.value });
 		return await getSettings();

@@ -33,7 +33,7 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 	async function getState() {
 		if (!state) {
 			const result = await storageModule.getSavedState();
-			setStateWithoutSave(result);
+			await setStateWithoutSave(result);
 		}
 
 		return state;
@@ -84,7 +84,6 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 
 		const leftReduced = fieldsArr.reduce(
 			(acc: any, cv: any, idx: number, arr: any) => {
-				console.log("Left: ", acc);
 				if (idx === arr.length - 1) return [...acc[1]];
 				return [acc[0][cv], [...acc[1], acc[0][cv]]];
 			},
@@ -92,7 +91,6 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 		);
 
 		const rightReduced = leftReduced.reduceRight((acc: any, cv: any, idx: number, arr: any) => {
-			console.log("Right: ", acc);
 			if (idx === arr.length - 1) return { ...cv, [fieldsArr[idx + 1]]: value };
 			return { ...cv, [fieldsArr[idx + 1]]: acc };
 		}, leftReduced[leftReduced.length - 1]);
