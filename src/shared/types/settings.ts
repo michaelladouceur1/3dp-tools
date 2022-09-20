@@ -9,48 +9,15 @@ export interface iSettingsService {
 
 // TODO: separate settings into distinct sections (UI, System, etc.)
 export interface iSettings {
-	autoSave: {
-		description: string;
-		value: boolean;
-	};
-	autoSaveDelay: {
-		description: string;
-		value: number;
-	};
-	autoUpdatePlugins: {
-		description: string;
-		value: boolean;
-	};
-	backup: {
-		description: string;
-		value: boolean;
-	};
-	backupFrequency: {
-		description: string;
-		value: number;
-	};
-	uiMode: {
-		description: string;
-		value: "dark" | "light";
-	};
-	uiBackgroundColors: {
-		description: string;
-		value: {
-			dark: string;
-			light: string;
-		};
-	};
-	uiFontColors: {
-		description: string;
-		value: {
-			dark: string;
-			light: string;
-		};
-	};
-	uiFontFamily: {
-		description: string;
-		value: string;
-	};
+	autoSave: iSettingsField<boolean>;
+	autoSaveDelay: iSettingsField<number>;
+	autoUpdatePlugins: iSettingsField<boolean>;
+	backup: iSettingsField<boolean>;
+	backupFrequency: iSettingsField<number>;
+	uiMode: iSettingsField<"dark" | "light">;
+	uiBackgroundColors: iSettingsField<{ dark: string; light: string }>;
+	uiFontColors: iSettingsField<{ dark: string; light: string }>;
+	uiFontFamily: iSettingsField<string>;
 }
 
 export interface iSettingsMutableFields {
@@ -67,7 +34,7 @@ export interface iSettingsMutableFields {
 	"uiFontFamily.value": string;
 }
 
-// export interface iSettingsField {
-// 	description: string;
-// 	value: any;
-// }
+export interface iSettingsField<Value> {
+	readonly description: string;
+	value: Value;
+}
