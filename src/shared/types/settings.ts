@@ -18,6 +18,7 @@ export interface iSettings {
 	uiBackgroundColors: iSettingsField<{ dark: string; light: string }>;
 	uiFontColors: iSettingsField<{ dark: string; light: string }>;
 	uiFontFamily: iSettingsField<string>;
+	testField: string;
 }
 
 export interface iSettingsMutableFields {
