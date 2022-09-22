@@ -22,7 +22,7 @@ describe("storage service", () => {
 	describe("getState", () => {
 		it("should return nothing from empty saved state", async () => {
 			const data = await store.getState();
-			expect(data).toBe(undefined);
+			expect(data).toBe("");
 		});
 	});
 });
