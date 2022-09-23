@@ -1,6 +1,6 @@
 import { iServices } from "../../shared/types/services";
 import { iPluginInvokeRequest, iPluginInvokeTargets } from "../../shared/types/plugins";
-import { iSettings } from "../../shared/types/settings";
+import { iSettings, iSettingsMutableFields } from "../../shared/types/settings";
 
 export class BasePlugin {
 	services: iServices;
@@ -19,7 +19,7 @@ export class BasePlugin {
 			"settings.updateSettings": async (data: iSettings) => {
 				return await settings.updateSettings(data);
 			},
-			"settings.updateSettingsField": async <T extends keyof iSettings>({ field, value }: { field: T; value: iSettings[T]["value"] }) => {
+			"settings.updateSettingsField": async <T extends keyof iSettingsMutableFields>({ field, value }: { field: T; value: iSettingsMutableFields[T] }) => {
 				return await settings.updateSettingsField(field, value);
 			},
 		};

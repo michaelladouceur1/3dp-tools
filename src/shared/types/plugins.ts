@@ -1,4 +1,4 @@
-import { iSettings } from "./settings";
+import { iSettings, iSettingsMutableFields } from "./settings";
 
 export interface iPluginsService {
 	getLocalPlugins: () => Promise<iPlugin[]>;
@@ -17,5 +17,11 @@ export interface iPluginInvokeRequest {
 export interface iPluginInvokeTargets {
 	"settings.getSettings": (data: void) => Promise<iSettings>;
 	"settings.updateSettings": (data: iSettings) => Promise<iSettings>;
-	"settings.updateSettingsField": <T extends keyof iSettings>({ field, value }: { field: T; value: iSettings[T]["value"] }) => Promise<iSettings>;
+	"settings.updateSettingsField": <T extends keyof iSettingsMutableFields>({
+		field,
+		value,
+	}: {
+		field: T;
+		value: iSettingsMutableFields[T];
+	}) => Promise<iSettings>;
 }

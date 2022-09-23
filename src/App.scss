@@ -1,0 +1,18 @@
+body {
+	height: 100vh;
+}
+
+main,
+#root {
+	height: 100%;
+}
+
+#root {
+	display: grid;
+	grid-template-columns: 300px 1fr;
+}
+
+main {
+	display: grid;
+	grid-template-rows: 50px 1fr;
+}
