@@ -68,11 +68,14 @@ export const MainContext = createContext<{ settings: iSettings }>({ settings: se
 
 export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
 	const { onSettingsData, getSettings } = window.api.settings;
+
+	const [stateSettings, setStateSettings] = useState(settingsInitial);
+
 	const [settings, setSettings] = useState(settingsInitial);
 
 	const initSettings = async () => {
 		const data: iSettings = await getSettings();
-		setSettings(data);
+		setStateSettings(data);
 	};
 
 	useEffect(() => {
@@ -80,8 +83,14 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 		initSettings();
 
 		// initialize state change callbacks
-		onSettingsData(setSettings);
+		onSettingsData(setStateSettings);
 	}, []);
+
+	useEffect(() => {
+		setSettings({
+			...stateSettings,
+		});
+	}, [stateSettings]);
 
 	return <MainContext.Provider value={{ settings }}>{children}</MainContext.Provider>;
 };
