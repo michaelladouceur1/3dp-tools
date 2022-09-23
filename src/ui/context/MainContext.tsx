@@ -33,12 +33,30 @@ const settingsInitial: iSettings = {
 			light: "#fff",
 		},
 	},
+	uiHighlight1Colors: {
+		description: "",
+		value: {
+			dark: "#111",
+			light: "#fff",
+		},
+	},
+	uiHighlight2Colors: {
+		description: "",
+		value: {
+			dark: "#111",
+			light: "#fff",
+		},
+	},
 	uiFontColors: {
 		description: "",
 		value: {
 			dark: "#fff",
 			light: "#111",
 		},
+	},
+	uiFontSize: {
+		description: "",
+		value: 12,
 	},
 	uiFontFamily: {
 		description: "",

@@ -16,7 +16,7 @@ export const defaults: iDefaults = {
 			},
 			autoSaveDelay: {
 				description: "",
-				value: 1000,
+				value: 5000,
 			},
 			autoUpdatePlugins: {
 				description: "",
@@ -37,6 +37,20 @@ export const defaults: iDefaults = {
 			uiBackgroundColors: {
 				description: "",
 				value: {
+					dark: "#464444",
+					light: "#d6d6d6",
+				},
+			},
+			uiHighlight1Colors: {
+				description: "",
+				value: {
+					dark: "#111",
+					light: "#fff",
+				},
+			},
+			uiHighlight2Colors: {
+				description: "",
+				value: {
 					dark: "#111",
 					light: "#fff",
 				},
@@ -47,6 +61,10 @@ export const defaults: iDefaults = {
 					dark: "#fff",
 					light: "#111",
 				},
+			},
+			uiFontSize: {
+				description: "",
+				value: 12,
 			},
 			uiFontFamily: {
 				description: "",

@@ -16,7 +16,10 @@ export interface iSettings {
 	backupFrequency: iSettingsField<number>;
 	uiMode: iSettingsField<"dark" | "light">;
 	uiBackgroundColors: iSettingsField<{ dark: string; light: string }>;
+	uiHighlight1Colors: iSettingsField<{ dark: string; light: string }>;
+	uiHighlight2Colors: iSettingsField<{ dark: string; light: string }>;
 	uiFontColors: iSettingsField<{ dark: string; light: string }>;
+	uiFontSize: iSettingsField<number>;
 	uiFontFamily: iSettingsField<string>;
 }
 
