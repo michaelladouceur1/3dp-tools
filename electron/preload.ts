@@ -23,6 +23,7 @@ window.api = {
 			await ipcRenderer.invoke(ipcChannels.settings.update, settings);
 		},
 		updateSettingsField: async <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => {
+			console.log("updateSettingsField");
 			await ipcRenderer.invoke(ipcChannels.settings.update_field, field, value);
 		},
 	},

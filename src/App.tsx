@@ -10,22 +10,24 @@ import "./App.scss";
 function App() {
 	const { updateSettingsField } = window.api.settings;
 
-	const { settings } = useContext(MainContext);
+	const {
+		settings: { autoSaveDelay, autoUpdatePlugins, uiMode, uiSelectedColors },
+	} = useContext(MainContext);
 	const { download } = window.api.system;
 
 	const [downloadUrl, setDownloadUrl] = useState("");
 
-	const bgColor = settings.uiMode.value === "dark" ? settings.uiDarkThemeColors.value.backgroundColor : settings.uiLightThemeColors.value.backgroundColor;
-
 	const updateBackgroundColor = (value: string) => {
-		const target = settings.uiMode.value === "dark" ? "uiDarkThemeColors.value.backgroundColor" : "uiLightThemeColors.value.backgroundColor";
+		const target = uiMode.value === "dark" ? "uiDarkThemeColors.value.backgroundColor" : "uiLightThemeColors.value.backgroundColor";
 		updateSettingsField(target, value);
 	};
 
+	const { backgroundColor } = uiSelectedColors.value;
+
 	return (
 		<>
-			<aside style={{ backgroundColor: bgColor }}>ASIDE</aside>
-			<main style={{ backgroundColor: bgColor }}>
+			<aside style={{ backgroundColor: backgroundColor }}>ASIDE</aside>
+			<main style={{ backgroundColor: backgroundColor }}>
 				<TopBar />
 				<div>
 					<h1>hello</h1>
@@ -33,30 +35,30 @@ function App() {
 						<label>Auto Update</label>
 						<input
 							type="checkbox"
-							checked={settings.autoUpdatePlugins.value}
-							onChange={() => updateSettingsField("autoUpdatePlugins.value", !settings.autoUpdatePlugins.value)}
+							checked={autoUpdatePlugins.value}
+							onChange={() => updateSettingsField("autoUpdatePlugins.value", !autoUpdatePlugins.value)}
 						></input>
 					</div>
 					<div>
 						<label>Theme Mode</label>
-						<select onChange={(e) => updateSettingsField("uiMode.value", e.target.value)} value={settings.uiMode.value}>
+						<select onChange={(e) => updateSettingsField("uiMode.value", e.target.value)} value={uiMode.value}>
 							<option value="dark">Dark</option>
 							<option value="light">Light</option>
 						</select>
 					</div>
 					<div>
 						<label>Theme Color</label>
-						<p>{bgColor}</p>
+						<p>{backgroundColor}</p>
 						<input
 							type="color"
-							// value={bgColor}
+							value={backgroundColor}
 							style={{ width: "30px", height: "30px", borderRadius: "50%" }}
 							onChange={(e) => updateBackgroundColor(e.target.value)}
 						/>
 					</div>
 					<div>
 						<label>Auto Save Delay</label>
-						<input type="text" value={settings.autoSaveDelay.value} onChange={(e) => updateSettingsField("autoSaveDelay.value", e.target.value)}></input>
+						<input type="text" value={autoSaveDelay.value} onChange={(e) => updateSettingsField("autoSaveDelay.value", e.target.value)}></input>
 					</div>
 					<div>
 						<label>Download</label>

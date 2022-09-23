@@ -21,6 +21,17 @@ export interface iSettings {
 	uiFontFamily: iSettingsField<string>;
 }
 
+export interface iUISettings extends iSettings {
+	uiSelectedColors: {
+		value: {
+			backgroundColor: string;
+			highlight1Color: string;
+			highlight2Color: string;
+			fontColor: string;
+		};
+	};
+}
+
 export interface iSettingsMutableFields {
 	"autoSave.value": boolean;
 	"autoSaveDelay.value": number;
