@@ -15,7 +15,12 @@ function App() {
 
 	const [downloadUrl, setDownloadUrl] = useState("");
 
-	const bgColor = settings.uiMode.value === "dark" ? settings.uiBackgroundColors.value.dark : settings.uiBackgroundColors.value.light;
+	const bgColor = settings.uiMode.value === "dark" ? settings.uiDarkThemeColors.value.backgroundColor : settings.uiLightThemeColors.value.backgroundColor;
+
+	const updateBackgroundColor = (value: string) => {
+		const target = settings.uiMode.value === "dark" ? "uiDarkThemeColors.value.backgroundColor" : "uiLightThemeColors.value.backgroundColor";
+		updateSettingsField(target, value);
+	};
 
 	return (
 		<>
@@ -41,11 +46,12 @@ function App() {
 					</div>
 					<div>
 						<label>Theme Color</label>
-						<p>{settings.uiMode.value === "dark" ? settings.uiBackgroundColors.value.dark : settings.uiBackgroundColors.value.light}</p>
+						<p>{bgColor}</p>
 						<input
 							type="color"
+							// value={bgColor}
 							style={{ width: "30px", height: "30px", borderRadius: "50%" }}
-							onChange={(e) => updateSettingsField(`uiBackgroundColors.value.${settings.uiMode.value}`, e.target.value)}
+							onChange={(e) => updateBackgroundColor(e.target.value)}
 						/>
 					</div>
 					<div>
