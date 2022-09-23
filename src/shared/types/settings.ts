@@ -15,10 +15,8 @@ export interface iSettings {
 	backup: iSettingsField<boolean>;
 	backupFrequency: iSettingsField<number>;
 	uiMode: iSettingsField<"dark" | "light">;
-	uiBackgroundColors: iSettingsField<{ dark: string; light: string }>;
-	uiHighlight1Colors: iSettingsField<{ dark: string; light: string }>;
-	uiHighlight2Colors: iSettingsField<{ dark: string; light: string }>;
-	uiFontColors: iSettingsField<{ dark: string; light: string }>;
+	uiDarkThemeColors: iSettingsField<{ backgroundColor: string; highlight1Color: string; highlight2Color: string; fontColor: string }>;
+	uiLightThemeColors: iSettingsField<{ backgroundColor: string; highlight1Color: string; highlight2Color: string; fontColor: string }>;
 	uiFontSize: iSettingsField<number>;
 	uiFontFamily: iSettingsField<string>;
 }
@@ -30,10 +28,15 @@ export interface iSettingsMutableFields {
 	"backup.value": boolean;
 	"backupFrequency.value": boolean;
 	"uiMode.value": "dark" | "light";
-	"uiBackgroundColors.value.dark": string;
-	"uiBackgroundColors.value.light": string;
-	"uiFontColors.value.dark": string;
-	"uiFontColors.value.light": string;
+	"uiDarkThemeColors.value.backgroundColor": string;
+	"uiDarkThemeColors.value.highlight1Color": string;
+	"uiDarkThemeColors.value.highlight2Color": string;
+	"uiDarkThemeColors.value.fontColor": string;
+	"uiLightThemeColors.value.backgroundColor": string;
+	"uiLightThemeColors.value.highlight1Color": string;
+	"uiLightThemeColors.value.highlight2Color": string;
+	"uiLightThemeColors.value.fontColor": string;
+	"uiFontSize.value": string;
 	"uiFontFamily.value": string;
 }
 
