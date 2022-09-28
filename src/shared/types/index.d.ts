@@ -1,4 +1,4 @@
-import { iSettings } from "./settings";
+import { iSettings, iSettingsMutableFields } from "./settings";
 
 export {};
 
@@ -11,8 +11,8 @@ declare global {
 			settings: {
 				onSettingsData: (callback: Function) => Promise<iSettings>;
 				getSettings: () => Promise<iSettings>;
-				updateSettings: (data) => void;
-				updateSettingsField: (field: string, value: any) => void;
+				updateSettings: (data: iSettings) => void;
+				updateSettingsField: <T extends keyof iSettingsMutableFields>(field: T, value: iSettingsMutableFields[T]) => void;
 			};
 		};
 	}

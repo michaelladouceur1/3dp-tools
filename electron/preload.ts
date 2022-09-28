@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import { ipcChannels } from "../src/shared/ipc-channels";
-import { iSettings } from "../src/shared/types/settings";
+import { iSettings, iSettingsMutableFields } from "../src/shared/types/settings";
 
 declare const window: any;
 
@@ -22,8 +22,7 @@ window.api = {
 		saveSettings: async (settings: iSettings) => {
 			await ipcRenderer.invoke(ipcChannels.settings.update, settings);
 		},
-		updateSettingsField: async <T extends keyof iSettings>(field: T, value: iSettings[T]["value"]) => {
-			console.log("updateSettingsField");
+		updateSettingsField: async <T extends keyof iSettingsMutableFields>(field: T, value: iSettingsMutableFields[T]) => {
 			await ipcRenderer.invoke(ipcChannels.settings.update_field, field, value);
 		},
 	},
