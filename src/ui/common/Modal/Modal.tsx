@@ -36,17 +36,18 @@ const ModalContent: React.FC<Props> = ({ children, isVisible, setIsVisible, dura
 		settings: { uiSelectedColors },
 	} = useContext(MainContext);
 
-	const { highlight1Color, highlight2Color } = uiSelectedColors.value;
+	const { backgroundColor, highlight1Color, highlight2Color } = uiSelectedColors.value;
 
 	const styles = {
 		panel: {
 			width: width,
 			height: height,
-			backgroundColor: highlight1Color,
+			backgroundColor: backgroundColor,
 			animation: isVisible ? `fadeIn ${duration}ms` : "",
 		},
 		menu: {
-			backgroundColor: highlight2Color,
+			backgroundColor: highlight1Color,
+			// borderBottom: `solid 1px ${highlight2Color}`,
 		},
 		overlay: {
 			animation: isVisible ? `blur ${duration}ms` : "",
@@ -63,7 +64,7 @@ const ModalContent: React.FC<Props> = ({ children, isVisible, setIsVisible, dura
 			<div style={styles.panel} className="modal-panel">
 				<div style={styles.menu} className="modal-menu">
 					<span>{title}</span>
-					<Button width="20px" height="20px" backgroundColor={{ standard: "highlight2", hover: "highlight1" }} onClick={setHidden}>
+					<Button width="20px" height="20px" backgroundColor={{ standard: "highlight1", hover: "highlight2" }} onClick={setHidden}>
 						<IoIosClose size="100%" />
 					</Button>
 				</div>

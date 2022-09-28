@@ -3,8 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { iSettings } from "./shared/types/settings";
 import { MainContext } from "./ui/context/MainContext";
 import TopBar from "./ui/components/Top-Bar/Top-Bar";
+import SettingsMenu from "./ui/components/Settings-Menu/SettingsMenu";
 import { ColorPicker } from "./ui/common/Color-Picker/ColorPicker";
-import { Modal } from "./ui/common/Modal/Modal";
 
 import "./reset.scss";
 import "./App.scss";
@@ -39,15 +39,12 @@ function App() {
 
 	return (
 		<>
-			<Modal title="Settings" width="800px" height="600px" isVisible={modalVisible} setIsVisible={setModalVisible}>
-				<div>test</div>
-			</Modal>
+			<SettingsMenu />
 			<aside style={{ backgroundColor: backgroundColor }}>ASIDE</aside>
 			<main style={{ backgroundColor: backgroundColor }}>
 				<TopBar />
 				<div>
 					<h1>hello</h1>
-					<button onClick={() => setModalVisible(true)}>modal</button>
 					<div>
 						<label>Auto Update</label>
 						<input

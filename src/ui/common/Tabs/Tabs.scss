@@ -1,0 +1,14 @@
+.tabs {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+
+	span {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
