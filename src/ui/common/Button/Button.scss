@@ -3,8 +3,10 @@ button {
 	justify-content: center;
 	align-items: center;
 	background-color: transparent;
+	padding: 0;
 	border: none;
 	border-radius: 5px;
+	text-decoration: none;
 }
 
 button:hover {

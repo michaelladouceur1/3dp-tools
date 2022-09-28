@@ -5,7 +5,7 @@ import { MainContext } from "../../context/MainContext";
 import "./Button.scss";
 
 type Props = {
-	children: JSX.Element;
+	children: JSX.Element | string;
 	width?: string;
 	height?: string;
 	backgroundColor?: {

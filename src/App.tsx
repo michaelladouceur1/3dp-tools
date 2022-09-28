@@ -4,6 +4,7 @@ import { iSettings } from "./shared/types/settings";
 import { MainContext } from "./ui/context/MainContext";
 import TopBar from "./ui/components/Top-Bar/Top-Bar";
 import { ColorPicker } from "./ui/common/Color-Picker/ColorPicker";
+import { Modal } from "./ui/common/Modal/Modal";
 
 import "./reset.scss";
 import "./App.scss";
@@ -17,6 +18,7 @@ function App() {
 	const { download } = window.api.system;
 
 	const [downloadUrl, setDownloadUrl] = useState("");
+	const [modalVisible, setModalVisible] = useState(false);
 
 	const updateBackgroundColor = (value: string) => {
 		const target = uiMode.value === "dark" ? "uiDarkThemeColors.value.backgroundColor" : "uiLightThemeColors.value.backgroundColor";
@@ -37,11 +39,15 @@ function App() {
 
 	return (
 		<>
+			<Modal title="Settings" width="800px" height="600px" isVisible={modalVisible} setIsVisible={setModalVisible}>
+				<div>test</div>
+			</Modal>
 			<aside style={{ backgroundColor: backgroundColor }}>ASIDE</aside>
 			<main style={{ backgroundColor: backgroundColor }}>
 				<TopBar />
 				<div>
 					<h1>hello</h1>
+					<button onClick={() => setModalVisible(true)}>modal</button>
 					<div>
 						<label>Auto Update</label>
 						<input

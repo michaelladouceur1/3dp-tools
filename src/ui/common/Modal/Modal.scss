@@ -1,0 +1,73 @@
+.modal {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.modal-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+		// backdrop-filter: blur(4px);
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+
+	.modal-panel {
+		display: grid;
+		grid-template-rows: 40px 1fr;
+		z-index: 11;
+		background-color: lightblue;
+
+		.modal-menu {
+			width: 100%;
+			height: 100%;
+			padding: 0 5px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.modal-content {
+			height: 100%;
+		}
+	}
+}
+
+@keyframes blur {
+	0% {
+		// backdrop-filter: blur(0px);
+		background-color: rgba(0, 0, 0, 0);
+	}
+	25% {
+		// backdrop-filter: blur(1px);
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	50% {
+		// backdrop-filter: blur(2px);
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	75% {
+		// backdrop-filter: blur(3px);
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	100% {
+		// backdrop-filter: blur(4px);
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

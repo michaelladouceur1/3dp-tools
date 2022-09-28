@@ -23,7 +23,7 @@ export default function TopBar() {
 						console.log("Button");
 					}}
 				>
-					<IoIosSettings size="100%" />
+					<IoIosSettings size="20px" />
 				</Button>
 			</div>
 		</header>
