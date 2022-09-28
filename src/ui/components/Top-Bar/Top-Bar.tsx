@@ -17,7 +17,7 @@ export default function TopBar() {
 	return (
 		<header style={{ backgroundColor: highlight1Color }}>
 			<div>HEADER</div>
-			<div>
+			<div className="top-bar-nav">
 				<Button
 					onClick={() => {
 						console.log("Button");
