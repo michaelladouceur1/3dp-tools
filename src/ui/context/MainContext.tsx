@@ -1,5 +1,5 @@
+import { createContext, useEffect, useState, PropsWithChildren } from "react";
 import { iSettings, iUISettings } from "../../shared/types/settings";
-import React, { createContext, useEffect, useState, PropsWithChildren } from "react";
 
 const settingsInitial: iSettings = {
 	autoSave: {

@@ -4,12 +4,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { MainContextProvider } from "./ui/context/MainContext";
+import { UIStateContextProvider } from "./ui/context/UIStateContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
 	<React.StrictMode>
 		<MainContextProvider>
-			<App />
+			<UIStateContextProvider>
+				<App />
+			</UIStateContextProvider>
 		</MainContextProvider>
 	</React.StrictMode>
 );
