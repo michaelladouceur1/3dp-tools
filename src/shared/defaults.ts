@@ -37,18 +37,18 @@ export const defaults: iDefaults = {
 			uiDarkThemeColors: {
 				description: "",
 				value: {
-					backgroundColor: "#464444",
-					highlight1Color: "#464444",
-					highlight2Color: "#464444",
-					fontColor: "black",
+					backgroundColor: "#2f363d",
+					highlight1Color: "#272830",
+					highlight2Color: "#515161",
+					fontColor: "white",
 				},
 			},
 			uiLightThemeColors: {
 				description: "",
 				value: {
-					backgroundColor: "#464444",
-					highlight1Color: "#464444",
-					highlight2Color: "#464444",
+					backgroundColor: "#c5c4c4",
+					highlight1Color: "#b3adad",
+					highlight2Color: "#808080",
 					fontColor: "black",
 				},
 			},
