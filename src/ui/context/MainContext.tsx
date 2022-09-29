@@ -62,8 +62,32 @@ const uiSettingsInitial: iUISettings = {
 			highlight1Color: "#464444",
 			highlight2Color: "#464444",
 			fontColor: "black",
+			fontColor2: "black",
 		},
 	},
+};
+
+const newShade = (hexColor: string, magnitude: number) => {
+	hexColor = hexColor.replace(`#`, ``);
+	if (hexColor.length === 6) {
+		const decimalColor = parseInt(hexColor, 16);
+		if (decimalColor > 16777215 / 2) {
+			magnitude = -1 * magnitude;
+		}
+		console.log("newShade: ", decimalColor);
+		let r = (decimalColor >> 16) + magnitude;
+		r > 255 && (r = 255);
+		r < 0 && (r = 0);
+		let g = (decimalColor & 0x0000ff) + magnitude;
+		g > 255 && (g = 255);
+		g < 0 && (g = 0);
+		let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
+		b > 255 && (b = 255);
+		b < 0 && (b = 0);
+		return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
+	} else {
+		return hexColor;
+	}
 };
 
 export const MainContext = createContext<{ settings: iUISettings }>({ settings: uiSettingsInitial });
@@ -98,7 +122,10 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 		setSettings({
 			...stateSettings,
 			uiSelectedColors: {
-				value: selectedColors,
+				value: {
+					...selectedColors,
+					fontColor2: newShade(selectedColors.fontColor, 50),
+				},
 			},
 		});
 	}, [stateSettings]);

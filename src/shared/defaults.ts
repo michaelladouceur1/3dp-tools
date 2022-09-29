@@ -40,7 +40,7 @@ export const defaults: iDefaults = {
 					backgroundColor: "#2f363d",
 					highlight1Color: "#272830",
 					highlight2Color: "#515161",
-					fontColor: "white",
+					fontColor: "#ffffff",
 				},
 			},
 			uiLightThemeColors: {
@@ -49,7 +49,7 @@ export const defaults: iDefaults = {
 					backgroundColor: "#c5c4c4",
 					highlight1Color: "#b3adad",
 					highlight2Color: "#808080",
-					fontColor: "black",
+					fontColor: "#000000",
 				},
 			},
 			uiFontSize: {

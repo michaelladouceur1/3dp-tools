@@ -4,17 +4,15 @@
 	display: grid;
 	grid-template-rows: 40px 1fr;
 
-	.settings-menu-nav {
-		padding: 5px;
+	// .settings-menu-nav {
+	// 	span {
+	// 		display: flex;
+	// 		justify-content: center;
+	// 		align-items: center;
 
-		span {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			&:hover {
-				cursor: pointer;
-			}
-		}
-	}
+	// 		&:hover {
+	// 			cursor: pointer;
+	// 		}
+	// 	}
+	// }
 }

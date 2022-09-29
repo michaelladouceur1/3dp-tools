@@ -28,6 +28,7 @@ export interface iUISettings extends iSettings {
 			highlight1Color: string;
 			highlight2Color: string;
 			fontColor: string;
+			fontColor2: string;
 		};
 	};
 }

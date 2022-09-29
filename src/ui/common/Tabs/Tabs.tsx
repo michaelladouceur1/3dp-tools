@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { MainContext } from "../../context/MainContext";
 import "./Tabs.scss";
 
 type Props = {
@@ -12,8 +13,14 @@ type Tab = {
 };
 
 export const Tabs: React.FC<Props> = ({ tabs }) => {
+	const {
+		settings: { uiSelectedColors },
+	} = useContext(MainContext);
+
 	const [hoveredTab, setHoveredTab] = useState<number | null>(null);
 	const [selectedTab, setSelectedTab] = useState<number>(0);
+
+	const { fontColor, fontColor2 } = uiSelectedColors.value;
 
 	useEffect(() => {
 		tabs[selectedTab].onClick();
@@ -27,13 +34,20 @@ export const Tabs: React.FC<Props> = ({ tabs }) => {
 	const style = (idx: number) => {
 		if (selectedTab === idx) {
 			return {
-				color: "green",
+				div: {
+					color: fontColor2,
+				},
+				span: {
+					borderBottom: `solid 1px ${fontColor2}`,
+				},
 			};
 		}
 
 		if (hoveredTab === idx) {
 			return {
-				color: "blue",
+				div: {
+					color: fontColor2,
+				},
 			};
 		}
 
@@ -44,16 +58,16 @@ export const Tabs: React.FC<Props> = ({ tabs }) => {
 		<div className="tabs">
 			{tabs.map((tab: Tab, idx: number) => {
 				return (
-					<span
+					<div
 						key={idx}
-						style={style(idx)}
+						style={style(idx).div}
 						className="tab"
 						onClick={() => handleClick(idx, tab)}
 						onMouseEnter={() => setHoveredTab(idx)}
 						onMouseLeave={() => setHoveredTab(null)}
 					>
-						{tab.title}
-					</span>
+						<span style={style(idx).span}>{tab.title}</span>
+					</div>
 				);
 			})}
 		</div>
