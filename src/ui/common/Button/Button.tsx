@@ -28,10 +28,13 @@ export const Button: React.FC<Props> = ({
 
 	const [hovering, setHovering] = useState(false);
 
+	const { fontColor } = uiSelectedColors.value;
+
 	const style = {
 		backgroundColor: hovering ? uiSelectedColors.value[`${backgroundColor.hover}Color`] : uiSelectedColors.value[`${backgroundColor.standard}Color`],
 		width: width,
 		height: height,
+		color: fontColor,
 	};
 
 	return (

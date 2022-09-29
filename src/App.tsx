@@ -11,11 +11,12 @@ import "./App.scss";
 
 function App() {
 	const {
-		settings: { uiSelectedColors },
+		settings: { uiSelectedColors, uiFontSize, uiFontFamily },
 	} = useContext(MainContext);
 
 	const style = {
 		color: uiSelectedColors.value.fontColor,
+		fontSize: uiFontSize.value,
 	};
 
 	const { backgroundColor } = uiSelectedColors.value;

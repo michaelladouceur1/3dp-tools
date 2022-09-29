@@ -37,24 +37,24 @@ export const defaults: iDefaults = {
 			uiDarkThemeColors: {
 				description: "",
 				value: {
-					backgroundColor: "#2f363d",
+					backgroundColor: "#2F363D",
 					highlight1Color: "#272830",
 					highlight2Color: "#515161",
-					fontColor: "#ffffff",
+					fontColor: "#C9C9C9",
 				},
 			},
 			uiLightThemeColors: {
 				description: "",
 				value: {
-					backgroundColor: "#c5c4c4",
-					highlight1Color: "#b3adad",
-					highlight2Color: "#808080",
-					fontColor: "#000000",
+					backgroundColor: "#DBDBDB",
+					highlight1Color: "#BABABA",
+					highlight2Color: "#969696",
+					fontColor: "#545454",
 				},
 			},
 			uiFontSize: {
 				description: "",
-				value: 12,
+				value: 14,
 			},
 			uiFontFamily: {
 				description: "",

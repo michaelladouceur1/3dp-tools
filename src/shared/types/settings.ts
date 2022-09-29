@@ -38,7 +38,7 @@ export interface iSettingsMutableFields {
 	"autoSaveDelay.value": number;
 	"autoUpdatePlugins.value": boolean;
 	"backup.value": boolean;
-	"backupFrequency.value": boolean;
+	"backupFrequency.value": number;
 	"uiMode.value": "dark" | "light";
 	"uiDarkThemeColors.value.backgroundColor": string;
 	"uiDarkThemeColors.value.highlight1Color": string;
@@ -48,7 +48,7 @@ export interface iSettingsMutableFields {
 	"uiLightThemeColors.value.highlight1Color": string;
 	"uiLightThemeColors.value.highlight2Color": string;
 	"uiLightThemeColors.value.fontColor": string;
-	"uiFontSize.value": string;
+	"uiFontSize.value": number;
 	"uiFontFamily.value": string;
 }
 
