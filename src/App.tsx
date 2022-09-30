@@ -9,6 +9,8 @@ import { ColorPicker } from "./ui/common/Color-Picker/ColorPicker";
 import "./reset.scss";
 import "./App.scss";
 
+// TODO: Development of session data
+// TODO: Development of prints data
 function App() {
 	const {
 		settings: { uiSelectedColors, uiFontSize, uiFontFamily },
