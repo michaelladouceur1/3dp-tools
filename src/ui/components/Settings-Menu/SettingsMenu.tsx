@@ -8,6 +8,16 @@ import { ColorPicker } from "../../common/Color-Picker/ColorPicker";
 
 import "./SettingsMenu.scss";
 
+type SettingsSubheader = {
+	title: string;
+};
+
+type SettingsField = {
+	children: JSX.Element;
+	title: string;
+	description: string;
+};
+
 type SectionProps = {
 	styles: SettingsMenuStyles;
 };
@@ -26,7 +36,7 @@ type SettingsMenuStyles = {
 
 export default function SettingsMenu() {
 	const {
-		settings: { uiSelectedColors, uiFontSize },
+		settings: { uiSelectedColors },
 	} = useContext(MainContext);
 	const { settingsMenuVisible, setSettingsMenuVisible } = useContext(UIStateContext);
 
@@ -65,6 +75,42 @@ export default function SettingsMenu() {
 	);
 }
 
+const SettingsSubheader: React.FC<SettingsSubheader> = ({ title }) => {
+	const {
+		settings: { uiSelectedColors },
+	} = useContext(MainContext);
+
+	const style = {
+		borderBottom: `1px solid ${uiSelectedColors.value.highlight2Color}`,
+	};
+
+	return (
+		<h1 style={style} className="settings-menu-subheader">
+			{title}
+		</h1>
+	);
+};
+
+const SettingsField: React.FC<SettingsField> = ({ children, title, description }) => {
+	const {
+		settings: { uiSelectedColors },
+	} = useContext(MainContext);
+
+	const style = {
+		color: uiSelectedColors.value.fontColor2,
+	};
+
+	return (
+		<div className="settings-menu-field-1">
+			<div>
+				<label>{title}</label>
+				<p style={style}>{description}</p>
+			</div>
+			{children}
+		</div>
+	);
+};
+
 const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
 	const { updateSettingsField } = window.api.settings;
 
@@ -96,78 +142,59 @@ const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
 
 	return (
 		<>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Theme Mode</label>
-					<p style={styles.p}>Light/Dark mode for 3DP Tools UI</p>
-				</div>
-				<select onChange={(e: any) => updateSettingsField("uiMode.value", e.target.value)} value={uiMode.value}>
-					<option value="dark">Dark</option>
-					<option value="light">Light</option>
-				</select>
-			</div>
-			<h1 style={styles.subheader} className="settings-menu-subheader">
-				Colors
-			</h1>
-			<div className="settings-menu-field-1">
-				<div className="settings-menu-field-title">
-					<label>Background Color</label>
-					<p style={styles.p}>Background color for 3DP Tools UI</p>
-				</div>
-				<ColorPicker value={backgroundColor} onChange={(e: any) => updateBackgroundColor(e.target.value)} />
-			</div>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Highlight 1 Color</label>
-					<p style={styles.p}>Highlight 1 color for 3DP Tools UI</p>
-				</div>
-				<ColorPicker value={highlight1Color} onChange={(e: any) => updateHighlight1Color(e.target.value)} />
-			</div>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Highlight 2 Color</label>
-					<p style={styles.p}>Highlight 2 color for 3DP Tools UI</p>
-				</div>
-				<ColorPicker value={highlight2Color} onChange={(e: any) => updateHighlight2Color(e.target.value)} />
-			</div>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Font Color</label>
-					<p style={styles.p}>Font color for 3DP Tools UI</p>
-				</div>
-				<ColorPicker value={fontColor} onChange={(e: any) => updateFontColor(e.target.value)} />
-			</div>
-			<h1 style={styles.subheader} className="settings-menu-subheader">
-				Fonts
-			</h1>
-			{/* // TODO: Update this field to be a slider */}
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Font Size</label>
-					<p style={styles.p}>Base font size for 3DP Tools UI. Range: 11-16</p>
-				</div>
-				<input
-					type="number"
-					min={11}
-					max={16}
-					value={uiFontSize.value}
-					onChange={(e) => {
-						const value = Number(e.target.value);
-						if (value < 11 || value > 16) return;
-						updateSettingsField("uiFontSize.value", value);
-					}}
-				></input>
-			</div>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Font Family</label>
-					<p style={styles.p}>Font family for 3DP Tools UI</p>
-				</div>
-				<select onChange={(e: any) => updateSettingsField("uiFontFamily.value", e.target.value)} value={uiFontFamily.value}>
-					<option value="sans-serif">Sans Serif</option>
-					<option value="roboto">Roboto</option>
-				</select>
-			</div>
+			{/* // General Section  */}
+			<>
+				<SettingsSubheader title="General" />
+				<SettingsField title="Theme Mode" description="Light/Dark mode for 3DP Tools UI">
+					<select onChange={(e: any) => updateSettingsField("uiMode.value", e.target.value)} value={uiMode.value}>
+						<option value="dark">Dark</option>
+						<option value="light">Light</option>
+					</select>
+				</SettingsField>
+			</>
+
+			{/* // Color Section  */}
+			<>
+				<SettingsSubheader title="Colors" />
+				<SettingsField title="Background Color" description="Background color for 3DP Tools UI">
+					<ColorPicker value={backgroundColor} onChange={(e: any) => updateBackgroundColor(e.target.value)} />
+				</SettingsField>
+				<SettingsField title="Highlight 1 Color" description="Highlight 1 color for 3DP Tools UI">
+					<ColorPicker value={highlight1Color} onChange={(e: any) => updateHighlight1Color(e.target.value)} />
+				</SettingsField>
+				<SettingsField title="Highlight 2 Color" description="Highlight 2 color for 3DP Tools UI">
+					<ColorPicker value={highlight2Color} onChange={(e: any) => updateHighlight2Color(e.target.value)} />
+				</SettingsField>
+				<SettingsField title="Font Color" description="Font color for 3DP Tools UI">
+					<ColorPicker value={fontColor} onChange={(e: any) => updateFontColor(e.target.value)} />
+				</SettingsField>
+			</>
+
+			{/* // Font Section  */}
+			<>
+				<SettingsSubheader title="Fonts" />
+				{/* // TODO: Update this field to be a slider */}
+				<SettingsField title="Font Size" description="Base font size for 3DP Tools UI. Range: 11-16">
+					<input
+						type="number"
+						min={11}
+						max={16}
+						value={uiFontSize.value}
+						onChange={(e) => {
+							const value = Number(e.target.value);
+							if (value < 11 || value > 16) return;
+							updateSettingsField("uiFontSize.value", value);
+						}}
+					/>
+				</SettingsField>
+				<SettingsField title="Font Family" description="Font family for 3DP Tools UI">
+					<select onChange={(e: any) => updateSettingsField("uiFontFamily.value", e.target.value)} value={uiFontFamily.value}>
+						<option value="'Montserrat', sans-serif">Montserrat</option>
+						<option value="'Radio Canada', sans-serif">Radio Canada</option>
+						<option value="'Roboto', sans-serif">Roboto</option>
+					</select>
+				</SettingsField>
+			</>
 		</>
 	);
 };
@@ -181,22 +208,14 @@ const SystemSection: React.FC<SectionProps> = ({ styles }) => {
 
 	return (
 		<>
-			<h1 style={styles.subheader} className="settings-menu-subheader">
-				Auto Save
-			</h1>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Auto Save</label>
-					<p style={styles.p}>Auto save 3DP Tools data</p>
-				</div>
+			{/* // Auto Save Section  */}
+			<SettingsSubheader title="Auto Save" />
+			<SettingsField title="Auto Save" description="Auto save 3DP Tools data">
 				<input type="checkbox" checked={autoSave.value} onChange={() => updateSettingsField("autoSave.value", !autoSave.value)}></input>
-			</div>
+			</SettingsField>
+
 			{/* // TODO: Update this field to be a slider */}
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Auto Save Delay</label>
-					<p style={styles.p}>Delay for auto save feature. Range: 1-60 seconds</p>
-				</div>
+			<SettingsField title="Auto Save Delay" description="Delay for auto save feature. Range: 1-60 seconds">
 				<input
 					disabled={!autoSave.value}
 					type="number"
@@ -204,25 +223,16 @@ const SystemSection: React.FC<SectionProps> = ({ styles }) => {
 					max={60}
 					value={autoSaveDelay.value / 1000}
 					onChange={(e) => updateSettingsField("autoSaveDelay.value", Number(e.target.value) * 1000)}
-				></input>
-			</div>
+				/>
+			</SettingsField>
 
-			<h1 style={styles.subheader} className="settings-menu-subheader">
-				Backup
-			</h1>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Backup Data</label>
-					<p style={styles.p}>Backup 3DP Tools data (Prints, Settings, etc.)</p>
-				</div>
+			{/* // Backup Section  */}
+			<SettingsSubheader title="Backup" />
+			<SettingsField title="Backup Data" description="Backup 3DP Tools data (Prints, Settings, etc.)">
 				<input type="checkbox" checked={backup.value} onChange={() => updateSettingsField("backup.value", !backup.value)}></input>
-			</div>
+			</SettingsField>
 			{/* // TODO: Update this field to be a slider */}
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Backup Data Frequency</label>
-					<p style={styles.p}>Frequency for 3DP Tools data backup. Range: 1-30 days</p>
-				</div>
+			<SettingsField title="Backup Data Frequency" description="Frequency for 3DP Tools data backup. Range: 1-30 days">
 				<input
 					disabled={!backup.value}
 					type="number"
@@ -230,8 +240,8 @@ const SystemSection: React.FC<SectionProps> = ({ styles }) => {
 					max={30}
 					value={backupFrequency.value / 86400000}
 					onChange={(e) => updateSettingsField("backupFrequency.value", Number(e.target.value) * 86400000)}
-				></input>
-			</div>
+				/>
+			</SettingsField>
 		</>
 	);
 };
@@ -247,17 +257,9 @@ const PluginsSection: React.FC<SectionProps> = ({ styles }) => {
 
 	return (
 		<>
-			<div className="settings-menu-field-1">
-				<div>
-					<label>Auto Update</label>
-					<p style={styles.p}>Auto update plugins when a new version is available</p>
-				</div>
-				<input
-					type="checkbox"
-					checked={autoUpdatePlugins.value}
-					onChange={() => updateSettingsField("autoUpdatePlugins.value", !autoUpdatePlugins.value)}
-				></input>
-			</div>
+			<SettingsField title="Auto Update" description="Auto update plugins when a new version is available">
+				<input type="checkbox" checked={autoUpdatePlugins.value} onChange={() => updateSettingsField("autoUpdatePlugins.value", !autoUpdatePlugins.value)} />
+			</SettingsField>
 
 			<div>
 				<label>Download</label>

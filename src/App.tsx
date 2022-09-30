@@ -17,6 +17,7 @@ function App() {
 	const style = {
 		color: uiSelectedColors.value.fontColor,
 		fontSize: uiFontSize.value,
+		fontFamily: uiFontFamily.value,
 	};
 
 	const { backgroundColor } = uiSelectedColors.value;
