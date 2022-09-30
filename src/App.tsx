@@ -9,8 +9,11 @@ import { ColorPicker } from "./ui/common/Color-Picker/ColorPicker";
 import "./reset.scss";
 import "./App.scss";
 
-// TODO: Development of session data
-// TODO: Development of prints data
+// TODO: Session data (most recent window size/location, currently selected printer, etc.)
+// TODO: Prints data (print tracking, etc.)
+// TODO: Data backup feature
+// TODO: Implement ability to turn auto save off and have warning to save when closing app
+// TODO: Side/Main menu development
 function App() {
 	const {
 		settings: { uiSelectedColors, uiFontSize, uiFontFamily },
