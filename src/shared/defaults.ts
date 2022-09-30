@@ -58,7 +58,7 @@ export const defaults: iDefaults = {
 			},
 			uiFontFamily: {
 				description: "",
-				value: "sans-serif",
+				value: "'Montserrat', sans-serif",
 			},
 		},
 	},

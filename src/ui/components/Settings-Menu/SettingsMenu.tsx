@@ -18,49 +18,27 @@ type SettingsField = {
 	description: string;
 };
 
-type SectionProps = {
-	styles: SettingsMenuStyles;
-};
-
-type SettingsMenuStyles = {
-	nav: {
-		borderBottom: string;
-	};
-	p: {
-		color: string;
-	};
-	subheader: {
-		borderBottom: string;
-	};
-};
-
+// TODO: Option to revert settings to default values
 export default function SettingsMenu() {
 	const {
 		settings: { uiSelectedColors },
 	} = useContext(MainContext);
 	const { settingsMenuVisible, setSettingsMenuVisible } = useContext(UIStateContext);
+	const [selectedSection, setSelectedSection] = useState(<ThemeSection />);
 
 	const { highlight2Color, fontColor2 } = uiSelectedColors.value;
 
-	const styles: SettingsMenuStyles = {
+	const styles = {
 		nav: {
-			borderBottom: `1px solid ${highlight2Color}`,
-		},
-		p: {
-			color: fontColor2,
-		},
-		subheader: {
 			borderBottom: `1px solid ${highlight2Color}`,
 		},
 	};
 
-	const [selectedSection, setSelectedSection] = useState(<ThemeSection styles={styles} />);
-
 	const tabs = [
-		{ title: "Theme", onClick: () => setSelectedSection(<ThemeSection styles={styles} />) },
-		{ title: "System", onClick: () => setSelectedSection(<SystemSection styles={styles} />) },
-		{ title: "Plugins", onClick: () => setSelectedSection(<PluginsSection styles={styles} />) },
-		{ title: "Information", onClick: () => setSelectedSection(<InformationSection styles={styles} />) },
+		{ title: "Theme", onClick: () => setSelectedSection(<ThemeSection />) },
+		{ title: "System", onClick: () => setSelectedSection(<SystemSection />) },
+		{ title: "Plugins", onClick: () => setSelectedSection(<PluginsSection />) },
+		{ title: "Information", onClick: () => setSelectedSection(<InformationSection />) },
 	];
 
 	return (
@@ -111,7 +89,7 @@ const SettingsField: React.FC<SettingsField> = ({ children, title, description }
 	);
 };
 
-const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
+const ThemeSection: React.FC = () => {
 	const { updateSettingsField } = window.api.settings;
 
 	const {
@@ -145,6 +123,7 @@ const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
 			{/* // General Section  */}
 			<>
 				<SettingsSubheader title="General" />
+				{/* // TODO: Update field to be a toggle switch  */}
 				<SettingsField title="Theme Mode" description="Light/Dark mode for 3DP Tools UI">
 					<select onChange={(e: any) => updateSettingsField("uiMode.value", e.target.value)} value={uiMode.value}>
 						<option value="dark">Dark</option>
@@ -173,7 +152,7 @@ const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
 			{/* // Font Section  */}
 			<>
 				<SettingsSubheader title="Fonts" />
-				{/* // TODO: Update this field to be a slider */}
+				{/* // TODO: Update field to be a slider */}
 				<SettingsField title="Font Size" description="Base font size for 3DP Tools UI. Range: 11-16">
 					<input
 						type="number"
@@ -199,7 +178,7 @@ const ThemeSection: React.FC<SectionProps> = ({ styles }) => {
 	);
 };
 
-const SystemSection: React.FC<SectionProps> = ({ styles }) => {
+const SystemSection: React.FC = () => {
 	const { updateSettingsField } = window.api.settings;
 
 	const {
@@ -209,44 +188,50 @@ const SystemSection: React.FC<SectionProps> = ({ styles }) => {
 	return (
 		<>
 			{/* // Auto Save Section  */}
-			<SettingsSubheader title="Auto Save" />
-			<SettingsField title="Auto Save" description="Auto save 3DP Tools data">
-				<input type="checkbox" checked={autoSave.value} onChange={() => updateSettingsField("autoSave.value", !autoSave.value)}></input>
-			</SettingsField>
+			<>
+				<SettingsSubheader title="Auto Save" />
+				{/* // TODO: Update field to be a toggle switch  */}
+				<SettingsField title="Auto Save" description="Auto save 3DP Tools data">
+					<input type="checkbox" checked={autoSave.value} onChange={() => updateSettingsField("autoSave.value", !autoSave.value)}></input>
+				</SettingsField>
 
-			{/* // TODO: Update this field to be a slider */}
-			<SettingsField title="Auto Save Delay" description="Delay for auto save feature. Range: 1-60 seconds">
-				<input
-					disabled={!autoSave.value}
-					type="number"
-					min={1}
-					max={60}
-					value={autoSaveDelay.value / 1000}
-					onChange={(e) => updateSettingsField("autoSaveDelay.value", Number(e.target.value) * 1000)}
-				/>
-			</SettingsField>
+				{/* // TODO: Update field to be a slider */}
+				<SettingsField title="Auto Save Delay" description="Delay for auto save feature. Range: 1-60 seconds">
+					<input
+						disabled={!autoSave.value}
+						type="number"
+						min={1}
+						max={60}
+						value={autoSaveDelay.value / 1000}
+						onChange={(e) => updateSettingsField("autoSaveDelay.value", Number(e.target.value) * 1000)}
+					/>
+				</SettingsField>
+			</>
 
 			{/* // Backup Section  */}
-			<SettingsSubheader title="Backup" />
-			<SettingsField title="Backup Data" description="Backup 3DP Tools data (Prints, Settings, etc.)">
-				<input type="checkbox" checked={backup.value} onChange={() => updateSettingsField("backup.value", !backup.value)}></input>
-			</SettingsField>
-			{/* // TODO: Update this field to be a slider */}
-			<SettingsField title="Backup Data Frequency" description="Frequency for 3DP Tools data backup. Range: 1-30 days">
-				<input
-					disabled={!backup.value}
-					type="number"
-					min={1}
-					max={30}
-					value={backupFrequency.value / 86400000}
-					onChange={(e) => updateSettingsField("backupFrequency.value", Number(e.target.value) * 86400000)}
-				/>
-			</SettingsField>
+			<>
+				<SettingsSubheader title="Backup" />
+				{/* // TODO: Update field to be a toggle switch  */}
+				<SettingsField title="Backup Data" description="Backup 3DP Tools data (Prints, Settings, etc.)">
+					<input type="checkbox" checked={backup.value} onChange={() => updateSettingsField("backup.value", !backup.value)}></input>
+				</SettingsField>
+				{/* // TODO: Update field to be a slider */}
+				<SettingsField title="Backup Data Frequency" description="Frequency for 3DP Tools data backup. Range: 1-30 days">
+					<input
+						disabled={!backup.value}
+						type="number"
+						min={1}
+						max={30}
+						value={backupFrequency.value / 86400000}
+						onChange={(e) => updateSettingsField("backupFrequency.value", Number(e.target.value) * 86400000)}
+					/>
+				</SettingsField>
+			</>
 		</>
 	);
 };
 
-const PluginsSection: React.FC<SectionProps> = ({ styles }) => {
+const PluginsSection: React.FC = () => {
 	const { updateSettingsField } = window.api.settings;
 	const { download } = window.api.system;
 
@@ -257,6 +242,7 @@ const PluginsSection: React.FC<SectionProps> = ({ styles }) => {
 
 	return (
 		<>
+			{/* // TODO: Update field to be a toggle switch  */}
 			<SettingsField title="Auto Update" description="Auto update plugins when a new version is available">
 				<input type="checkbox" checked={autoUpdatePlugins.value} onChange={() => updateSettingsField("autoUpdatePlugins.value", !autoUpdatePlugins.value)} />
 			</SettingsField>
@@ -270,6 +256,6 @@ const PluginsSection: React.FC<SectionProps> = ({ styles }) => {
 	);
 };
 
-const InformationSection: React.FC<SectionProps> = ({ styles }) => {
+const InformationSection: React.FC = () => {
 	return <div>Information</div>;
 };
