@@ -4,6 +4,7 @@ import * as path from "path";
 import { ipcChannels } from "../shared/ipc-channels";
 import { defaults } from "../shared/defaults";
 import { unzip } from "./utils";
+import { iInfoService } from "../shared/types/info";
 import { iSettingsService, iSettings, iSettingsMutableFields } from "../shared/types/settings";
 
 function initializeSystemIPC(window: BrowserWindow) {
@@ -43,6 +44,14 @@ function initializeSystemIPC(window: BrowserWindow) {
 	});
 }
 
+function initializeInfoIPC(window: BrowserWindow, info: iInfoService) {
+	const infoStateEmitter = info.getStateEmitter();
+
+	infoStateEmitter.on(ipcChannels.info.data, (data: any) => {
+		window.webContents.send(ipcChannels.info.data, data);
+	});
+}
+
 function initializeSettingsIPC(window: BrowserWindow, settings: iSettingsService) {
 	const settingsStateEmitter = settings.store().getStateEmitter();
 
@@ -65,5 +74,6 @@ function initializeSettingsIPC(window: BrowserWindow, settings: iSettingsService
 
 export function initialize(window: BrowserWindow, services: any) {
 	initializeSystemIPC(window);
+	initializeInfoIPC(window, services.info);
 	initializeSettingsIPC(window, services.settings);
 }

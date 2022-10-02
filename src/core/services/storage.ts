@@ -1,5 +1,6 @@
 const EventEmitter = require("events");
 
+import { iInfoService } from "../../shared/types/info";
 import { iStorageService, iFSOptions, iFSSetState } from "../../shared/types/storage";
 import { fileStorage } from "../../lib/file-storage";
 
@@ -7,7 +8,12 @@ interface iStorageTypes {
 	file: iFSOptions;
 }
 
-export function storage<T extends keyof iStorageTypes>(storageType: T, stateChangeEvent: string, options: iStorageTypes[T]): iStorageService {
+export function storage<T extends keyof iStorageTypes>(
+	infoService: iInfoService,
+	storageType: T,
+	stateChangeEvent: string,
+	options: iStorageTypes[T]
+): iStorageService {
 	const eventEmitter = new EventEmitter();
 	const storageModules = { file: fileStorage(options) };
 	const storageModule = storageModules[storageType];
@@ -16,6 +22,7 @@ export function storage<T extends keyof iStorageTypes>(storageType: T, stateChan
 
 	async function stateChange() {
 		eventEmitter.emit(stateChangeEvent, state);
+		infoService.info("State Updated");
 	}
 
 	function getStateEmitter() {

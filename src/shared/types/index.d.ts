@@ -8,6 +8,9 @@ declare global {
 			system: {
 				download: (downloadUrl: string, target?: string) => void;
 			};
+			info: {
+				onInfoData: (callback: Function) => Promise<any>;
+			};
 			settings: {
 				onSettingsData: (callback: Function) => Promise<iSettings>;
 				getSettings: () => Promise<iSettings>;

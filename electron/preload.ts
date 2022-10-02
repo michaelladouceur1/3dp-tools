@@ -10,9 +10,16 @@ window.api = {
 			ipcRenderer.send(ipcChannels.system.download, downloadUrl, target);
 		},
 	},
+	info: {
+		onInfoData: (callback: Function) => {
+			ipcRenderer.on(ipcChannels.info.data, async (_: any, data: any) => {
+				await callback(data);
+			});
+		},
+	},
 	settings: {
 		onSettingsData: (callback: Function) => {
-			ipcRenderer.on("settings-data", async (_: any, data: any) => {
+			ipcRenderer.on(ipcChannels.settings.data, async (_: any, data: any) => {
 				await callback(data);
 			});
 		},

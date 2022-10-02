@@ -93,6 +93,7 @@ const newShade = (hexColor: string, magnitude: number) => {
 export const MainContext = createContext<{ settings: iUISettings }>({ settings: uiSettingsInitial });
 
 export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
+	const { onInfoData } = window.api.info;
 	const { onSettingsData, getSettings } = window.api.settings;
 
 	const [stateSettings, setStateSettings] = useState(settingsInitial);
@@ -107,6 +108,10 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 	useEffect(() => {
 		// initialize data
 		initSettings();
+
+		onInfoData((data: any) => {
+			console.log(data);
+		});
 
 		// initialize state change callbacks
 		onSettingsData((data: iSettings) => {
