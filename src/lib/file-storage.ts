@@ -48,7 +48,7 @@ export function fileStorage(infoService: iInfoService, { path, encoding = "utf8"
 			if (saveDelay === 0) {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;
-				infoService.info("Data Saved");
+				infoService.info("Data Saved", `Data saved to path: ${path}`);
 				return;
 			}
 
