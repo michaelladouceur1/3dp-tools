@@ -3,7 +3,6 @@ import { mkdir, readFile, writeFile, rm } from "fs/promises";
 import { iInfoService } from "../shared/types/info";
 import { iStorageSaveService, iFSOptions, iFSSetState } from "../shared/types/storage";
 
-// TODO: Add event listener to inform app of state change
 // fileStorage can take in a state change event (ie: ipcChannels.settings.data => 'settings.data')
 // When the state changes in file-storage or storage, the event is triggered
 export function fileStorage(infoService: iInfoService, { path, encoding = "utf8" }: iFSOptions): iStorageSaveService {
