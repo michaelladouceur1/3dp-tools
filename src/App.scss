@@ -13,7 +13,13 @@ main,
 
 #app {
 	display: grid;
+	grid-template-rows: 1fr 30px;
+}
+
+#main {
+	display: grid;
 	grid-template-columns: 300px 1fr;
+	height: 100%;
 }
 
 main {

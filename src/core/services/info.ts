@@ -12,6 +12,7 @@ export function info(): iInfoService {
 			code: 0,
 			message: "",
 			details: "",
+			timestamp: null,
 		},
 		logs: [],
 	};
@@ -33,19 +34,20 @@ export function info(): iInfoService {
 	function clearLog() {
 		state.current_log = {
 			type: null,
-			code: 0,
+			code: null,
 			message: "",
 			details: "",
+			timestamp: null,
 		};
 		stateChange();
 	}
 
-	function info(message: string, timeout: number = 5000) {
+	function info(message: string, details: string = "", timeout: number = 5000) {
 		if (infoTimeout !== undefined) {
 			clearTimeout(infoTimeout);
 		}
 
-		addLog({ type: "info", message: message, details: "", code: 0 });
+		addLog({ type: "info", message: message, details: details, code: 0, timestamp: Date.now() });
 
 		infoTimeout = setTimeout(() => {
 			clearLog();
@@ -53,12 +55,12 @@ export function info(): iInfoService {
 		}, timeout);
 	}
 
-	function error(message: string, details = "", code = 0, timeout: number = 5000) {
+	function error(message: string, details = "", code = 0, timeout: number = 30000) {
 		if (infoTimeout !== undefined) {
 			clearTimeout(infoTimeout);
 		}
 
-		addLog({ type: "error", message: message, details: details, code: code });
+		addLog({ type: "error", message: message, details: details, code: code, timestamp: Date.now() });
 
 		infoTimeout = setTimeout(() => {
 			clearLog();

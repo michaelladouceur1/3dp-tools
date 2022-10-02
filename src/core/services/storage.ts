@@ -15,14 +15,13 @@ export function storage<T extends keyof iStorageTypes>(
 	options: iStorageTypes[T]
 ): iStorageService {
 	const eventEmitter = new EventEmitter();
-	const storageModules = { file: fileStorage(options) };
+	const storageModules = { file: fileStorage(infoService, options) };
 	const storageModule = storageModules[storageType];
 
 	let state: any;
 
 	async function stateChange() {
 		eventEmitter.emit(stateChangeEvent, state);
-		infoService.info("State Updated");
 	}
 
 	function getStateEmitter() {

@@ -1,5 +1,14 @@
 import { createContext, useEffect, useState, PropsWithChildren } from "react";
+import { iInfoLog } from "../../shared/types/info";
 import { iSettings, iUISettings } from "../../shared/types/settings";
+
+const infoInitial: iInfoLog = {
+	type: null,
+	message: "",
+	details: "",
+	code: null,
+	timestamp: null,
+};
 
 const settingsInitial: iSettings = {
 	autoSave: {
@@ -74,7 +83,6 @@ const newShade = (hexColor: string, magnitude: number) => {
 		if (decimalColor > 16777215 / 2) {
 			magnitude = -1 * magnitude;
 		}
-		console.log("newShade: ", decimalColor);
 		let r = (decimalColor >> 16) + magnitude;
 		r > 255 && (r = 255);
 		r < 0 && (r = 0);
@@ -90,7 +98,7 @@ const newShade = (hexColor: string, magnitude: number) => {
 	}
 };
 
-export const MainContext = createContext<{ settings: iUISettings }>({ settings: uiSettingsInitial });
+export const MainContext = createContext<{ info: iInfoLog; settings: iUISettings }>({ info: infoInitial, settings: uiSettingsInitial });
 
 export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
 	const { onInfoData } = window.api.info;
@@ -98,6 +106,7 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 
 	const [stateSettings, setStateSettings] = useState(settingsInitial);
 
+	const [info, setInfo] = useState(infoInitial);
 	const [settings, setSettings] = useState(uiSettingsInitial);
 
 	const initSettings = async () => {
@@ -109,8 +118,8 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 		// initialize data
 		initSettings();
 
-		onInfoData((data: any) => {
-			console.log(data);
+		onInfoData((data: iInfoLog) => {
+			setInfo(data);
 		});
 
 		// initialize state change callbacks
@@ -135,5 +144,5 @@ export const MainContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 		});
 	}, [stateSettings]);
 
-	return <MainContext.Provider value={{ settings }}>{children}</MainContext.Provider>;
+	return <MainContext.Provider value={{ info, settings }}>{children}</MainContext.Provider>;
 };

@@ -1,11 +1,12 @@
 import { mkdir, readFile, writeFile, rm } from "fs/promises";
 
+import { iInfoService } from "../shared/types/info";
 import { iStorageSaveService, iFSOptions, iFSSetState } from "../shared/types/storage";
 
 // TODO: Add event listener to inform app of state change
 // fileStorage can take in a state change event (ie: ipcChannels.settings.data => 'settings.data')
 // When the state changes in file-storage or storage, the event is triggered
-export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSaveService {
+export function fileStorage(infoService: iInfoService, { path, encoding = "utf8" }: iFSOptions): iStorageSaveService {
 	if (path === "") {
 		throw new Error('fileStorage option: "path" can not be an empty string');
 	}
@@ -47,16 +48,19 @@ export function fileStorage({ path, encoding = "utf8" }: iFSOptions): iStorageSa
 			if (saveDelay === 0) {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;
+				infoService.info("Data Saved");
 				return;
 			}
 
 			fileStorageTimeout = setTimeout(async () => {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;
+				infoService.info("Data Saved", `Data saved to path: ${path}`);
 			}, saveDelay);
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);
+				infoService.error("Data Save Error", error);
 			}
 		}
 	}

@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { iSettings } from "./shared/types/settings";
 import { MainContext } from "./ui/context/MainContext";
 import TopBar from "./ui/components/Top-Bar/Top-Bar";
+import InfoBar from "./ui/components/Info-Bar/InfoBar";
 import SettingsMenu from "./ui/components/Settings-Menu/SettingsMenu";
 import { ColorPicker } from "./ui/common/Color-Picker/ColorPicker";
 
@@ -29,14 +30,17 @@ function App() {
 
 	return (
 		<div id="app" style={style}>
-			<SettingsMenu />
-			<aside style={{ backgroundColor: backgroundColor }}>ASIDE</aside>
-			<main style={{ backgroundColor: backgroundColor }}>
-				<TopBar />
-				<div>
-					<h1>hello</h1>
-				</div>
-			</main>
+			<div id="main">
+				<SettingsMenu />
+				<aside style={{ backgroundColor: backgroundColor }}>ASIDE</aside>
+				<main style={{ backgroundColor: backgroundColor }}>
+					<TopBar />
+					<div>
+						<h1>hello</h1>
+					</div>
+				</main>
+			</div>
+			<InfoBar />
 		</div>
 	);
 }

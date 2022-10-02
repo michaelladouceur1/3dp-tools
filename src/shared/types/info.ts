@@ -2,7 +2,7 @@ const EventEmitter = require("events");
 
 export interface iInfoService {
 	getStateEmitter: () => typeof EventEmitter;
-	info: (message: string, timeout?: number) => void;
+	info: (message: string, details?: string, timeout?: number) => void;
 	error: (message: string, details?: string, code?: number, timeout?: number) => void;
 }
 
@@ -15,5 +15,6 @@ export interface iInfoLog {
 	type: "info" | "error" | null;
 	message: string;
 	details?: string;
-	code?: number;
+	code?: number | null;
+	timestamp: number | null;
 }
