@@ -22,29 +22,6 @@ function initializeDirectories(paths: iDefaultsPaths) {
 	}
 }
 
-// TODO: Check if settings fields have been updated (ie: Added field uiBackgroundColors) and updated settings file
-// This is necessary for updates in the future
-function initializeAppData(paths: iDefaultsPaths, appData: iDefaultsAppData) {
-	const { plugins, settings } = paths;
-	const { plugins: pluginsData, settings: settingsData } = appData;
-
-	// create plugins file
-	createFile(plugins, pluginsData);
-	// create settings file
-	createFile(settings, settingsData);
-
-	function createFile(path: string, data: any) {
-		try {
-			writeFileSync(path, JSON.stringify(data), { encoding: "utf8", flag: "wx" });
-		} catch (error: any) {
-			if (error.code !== "EEXIST") {
-				console.log(error);
-			}
-		}
-	}
-}
-
 export async function initialize() {
 	await initializeDirectories(defaults.paths);
-	await initializeAppData(defaults.paths, defaults.appData);
 }

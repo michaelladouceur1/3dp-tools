@@ -1,4 +1,5 @@
 import { iSettings } from "./settings";
+import { iSessionData } from "./session-data";
 
 export interface iDefaults {
 	appData: iDefaultsAppData;
@@ -9,6 +10,7 @@ export interface iDefaults {
 export interface iDefaultsAppData {
 	plugins: iDefaultsPlugin[];
 	settings: iSettings;
+	sessionData: iSessionData;
 }
 
 export interface iDefaultsBrowserWindow {
@@ -27,6 +29,7 @@ export interface iDefaultsPaths {
 	pluginsDir: string;
 	plugins: string;
 	settings: string;
+	sessionData: string;
 }
 
 export interface iDefaultsPlugin {

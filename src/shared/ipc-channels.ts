@@ -11,4 +11,7 @@ export const ipcChannels = {
 		update: "update-settings",
 		update_field: "update-settings-field",
 	},
+	sessionData: {
+		data: "session-data",
+	},
 };

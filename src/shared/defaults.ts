@@ -61,6 +61,15 @@ export const defaults: iDefaults = {
 				value: "'Montserrat', sans-serif",
 			},
 		},
+		sessionData: {
+			window: {
+				width: 1200,
+				height: 800,
+				x: 0,
+				y: 0,
+			},
+			lastBackup: Date.now(),
+		},
 	},
 	browserWindow: {
 		width: 1200,
@@ -78,5 +87,6 @@ export const defaults: iDefaults = {
 		pluginsDir: path.join(DATA, "plugins"),
 		plugins: path.join(DATA, "plugins.tdp"),
 		settings: path.join(DATA, "settings.tdp"),
+		sessionData: path.join(DATA, "session-data.tdp"),
 	},
 };
