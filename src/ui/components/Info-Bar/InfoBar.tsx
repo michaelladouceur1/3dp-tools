@@ -11,10 +11,10 @@ export default function InfoBar() {
 		settings: { uiSelectedColors },
 	} = useContext(MainContext);
 
-	const { highlight1Color } = uiSelectedColors.value;
+	const { highlight1Color, highlight2Color } = uiSelectedColors.value;
 
 	return (
-		<div style={{ backgroundColor: highlight1Color }} className="info-bar">
+		<div style={{ backgroundColor: highlight1Color, borderTop: `1px solid ${highlight2Color}` }} className="info-bar">
 			<span className="info">
 				<IoIosInformationCircle size="20px" />
 				<h1>{info.message}</h1>

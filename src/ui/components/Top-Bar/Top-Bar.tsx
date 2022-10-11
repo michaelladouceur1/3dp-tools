@@ -16,11 +16,11 @@ export default function TopBar() {
 
 	const { setSettingsMenuVisible } = useContext(UIStateContext);
 
-	const { highlight1Color } = uiSelectedColors.value;
+	const { highlight1Color, highlight2Color } = uiSelectedColors.value;
 
 	return (
-		<header style={{ backgroundColor: highlight1Color }}>
-			<div>HEADER</div>
+		<header style={{ backgroundColor: highlight1Color, borderBottom: `1px solid ${highlight2Color}` }}>
+			<div></div>
 			<div className="top-bar-nav">
 				<Button onClick={() => console.log("Plugins")}>
 					<AiFillApi size="20px" />
