@@ -9,5 +9,7 @@ export default function MainMenu() {
 
 	const { highlight1Color, highlight2Color } = uiSelectedColors.value;
 
-	return <aside style={{ backgroundColor: highlight1Color, borderRight: `1px solid ${highlight2Color}` }}></aside>;
+	const style = { backgroundColor: highlight1Color, borderRight: `1px solid ${highlight2Color}` };
+
+	return <aside style={style}></aside>;
 }
