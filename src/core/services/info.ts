@@ -1,6 +1,6 @@
 const EventEmitter = require("events");
 import { ipcChannels } from "../../shared/ipc-channels";
-import { iInfoService, iInfoState, iInfoLog } from "../../shared/types/info";
+import { iInfoService, iInfoState, iInfoLog, iInfoOptions, iErrorOptions } from "../../shared/types/info";
 
 export function info(): iInfoService {
 	const eventEmitter = new EventEmitter();
@@ -42,7 +42,7 @@ export function info(): iInfoService {
 		stateChange();
 	}
 
-	function info(message: string, details: string = "", timeout: number = 5000) {
+	function info({ message, details = "", timeout = 5000 }: iInfoOptions) {
 		if (infoTimeout !== undefined) {
 			clearTimeout(infoTimeout);
 		}
@@ -55,7 +55,7 @@ export function info(): iInfoService {
 		}, timeout);
 	}
 
-	function error(message: string, details = "", code = 0, timeout: number = 30000) {
+	function error({ message, details = "", code = 0, timeout = 30000 }: iErrorOptions) {
 		if (infoTimeout !== undefined) {
 			clearTimeout(infoTimeout);
 		}

@@ -47,19 +47,19 @@ export function fileStorage(infoService: iInfoService, { path, encoding = "utf8"
 			if (saveDelay === 0) {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;
-				infoService.info("Data Saved", `Data saved to path: ${path}`);
+				infoService.info({ message: "Data Saved", details: `Data saved to path: ${path}` });
 				return;
 			}
 
 			fileStorageTimeout = setTimeout(async () => {
 				await writeFile(path, JSON.stringify(data), { encoding: encoding, flag: flags[type] });
 				fileStorageTimeout = undefined;
-				infoService.info("Data Saved", `Data saved to path: ${path}`);
+				infoService.info({ message: "Data Saved", details: `Data saved to path: ${path}` });
 			}, saveDelay);
 		} catch (error: any) {
 			if (error.code !== "EEXIST") {
 				console.log(error);
-				infoService.error("Data Save Error", error);
+				infoService.error({ message: "Data Save Error", details: error });
 			}
 		}
 	}

@@ -2,8 +2,21 @@ const EventEmitter = require("events");
 
 export interface iInfoService {
 	getStateEmitter: () => typeof EventEmitter;
-	info: (message: string, details?: string, timeout?: number) => void;
-	error: (message: string, details?: string, code?: number, timeout?: number) => void;
+	info: ({ message, details, timeout }: iInfoOptions) => void;
+	error: ({ message, details, code, timeout }: iErrorOptions) => void;
+}
+
+export interface iInfoOptions {
+	message: string;
+	details?: string;
+	timeout?: number;
+}
+
+export interface iErrorOptions {
+	message: string;
+	details?: string;
+	code?: number;
+	timeout?: number;
 }
 
 export interface iInfoState {

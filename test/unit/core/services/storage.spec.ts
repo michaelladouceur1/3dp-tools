@@ -1,5 +1,3 @@
-import * as utils from "../../../utils";
-
 import { info } from "../../../../src/core/services/info";
 import { iFSSetState, iStorageService } from "../../../../src/shared/types/storage";
 import { storage } from "../../../../src/core/services/storage";
