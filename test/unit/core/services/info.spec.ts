@@ -24,9 +24,6 @@ describe("info service", () => {
 			const msg = "Data Saved";
 			infoService?.info({ message: msg });
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe("info");
 			expect(infoState?.message).toBe(msg);
 		});
@@ -36,18 +33,12 @@ describe("info service", () => {
 			const msg = "Data Updated";
 			infoService?.info({ message: msg, timeout: timeout });
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe("info");
 			expect(infoState?.message).toBe(msg);
 
 			// sleep for timeout to clear log
 			await new Promise((r) => setTimeout(r, timeout + 100));
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe(null);
 			expect(infoState?.message).toBe("");
 		});
@@ -58,9 +49,6 @@ describe("info service", () => {
 			const msg = "Data Saved";
 			infoService?.error({ message: msg });
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe("error");
 			expect(infoState?.message).toBe(msg);
 		});
@@ -70,18 +58,12 @@ describe("info service", () => {
 			const msg = "Data Updated";
 			infoService?.error({ message: msg, timeout: timeout });
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe("error");
 			expect(infoState?.message).toBe(msg);
 
 			// sleep for timeout to clear log
 			await new Promise((r) => setTimeout(r, timeout + 100));
 
-			expect(typeof infoState).toBe("object");
-			expect(infoState).toHaveProperty("type");
-			expect(infoState).toHaveProperty("message");
 			expect(infoState?.type).toBe(null);
 			expect(infoState?.message).toBe("");
 		});
