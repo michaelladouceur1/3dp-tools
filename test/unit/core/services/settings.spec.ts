@@ -1,6 +1,7 @@
 import * as utils from "../../../utils";
 
 import { defaults } from "../../../../src/shared/defaults";
+import { info } from "../../../../src/core/services/info";
 import { iSettings, iSettingsService } from "../../../../src/shared/types/settings";
 import { iStorageService } from "../../../../src/shared/types/storage";
 import * as settingsService from "../../../../src/core/services/settings";
@@ -19,7 +20,7 @@ describe("settings service", () => {
 	// });
 
 	beforeEach(async () => {
-		storage = storageService.storage("file", "", { path: TMP_PATH });
+		storage = storageService.storage(info(), "file", "", { path: TMP_PATH });
 		await storage.createStore(TEST_DATA);
 		settings = await settingsService.settings(storage);
 	});
