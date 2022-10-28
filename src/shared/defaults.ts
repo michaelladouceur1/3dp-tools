@@ -9,6 +9,7 @@ const DATA = path.join(HOME, "data");
 export const defaults: iDefaults = {
 	appData: {
 		plugins: [],
+		// TODO: Update settings to not contain description
 		settings: {
 			autoSave: {
 				description: "",

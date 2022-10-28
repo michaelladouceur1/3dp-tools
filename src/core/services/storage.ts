@@ -8,6 +8,7 @@ interface iStorageTypes {
 	file: iFSOptions;
 }
 
+// TODO: add storageModule for memory storage
 export function storage<T extends keyof iStorageTypes>(
 	infoService: iInfoService,
 	storageType: T,
@@ -56,6 +57,7 @@ export function storage<T extends keyof iStorageTypes>(
 		return await storageModule.setSavedState(state, options);
 	}
 
+	// TODO: throw errors for not array and item.id === undefined
 	async function setStateItem(item: any, options: iFSSetState) {
 		if (!Array.isArray(state)) return;
 		if (item.id === undefined) return;
@@ -64,6 +66,7 @@ export function storage<T extends keyof iStorageTypes>(
 		return await storageModule.setSavedState(state, options);
 	}
 
+	// TODO: throw errors for not array
 	async function setStateItemField(id: number, field: any, value: any, options: iFSSetState) {
 		if (!Array.isArray(state)) return;
 

@@ -6,7 +6,7 @@ export interface iPrintsService {
 	addPrint: (print: iPrint) => Promise<iPrint[]>;
 	updatePrint: (print: iPrint) => Promise<iPrint[]>;
 	updatePrintField: <T extends keyof iPrint>(id: number, field: T, value: iPrint[T]) => Promise<iPrint[]>;
-	deletePrint: (print: iPrint) => Promise<iPrint[]>;
+	deletePrint: (print: iPrint | number) => Promise<iPrint[]>;
 }
 
 export interface iPrints {
@@ -14,7 +14,7 @@ export interface iPrints {
 }
 
 export interface iPrint {
-	id: number;
+	id?: number;
 	name: string;
 	description: string;
 	// units: "mm" | "cm";

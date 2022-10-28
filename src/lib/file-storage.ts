@@ -13,7 +13,7 @@ export function fileStorage(infoService: iInfoService, { path, encoding = "utf8"
 	let fileStorageTimeout: any;
 
 	async function createStore(data: any) {
-		data ? await setSavedState(data, { type: "ow", saveDelay: 0 }) : await setSavedState("", { type: "now", saveDelay: 0 });
+		data !== undefined ? await setSavedState(data, { type: "ow", saveDelay: 0 }) : await setSavedState("", { type: "now", saveDelay: 0 });
 	}
 
 	async function destroyStore() {
